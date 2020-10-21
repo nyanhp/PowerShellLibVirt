@@ -1,4 +1,4 @@
-class LibVirtBootConfiguration
+class PoshLibVirtBootConfiguration
 {
     [string[]] $BootDevices
     [string] $Kernel

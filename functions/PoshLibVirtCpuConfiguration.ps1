@@ -1,4 +1,4 @@
-class LibVirtCpuConfiguration
+class PoshLibVirtCpuConfiguration
 {
     [string] $Model
     [string[]] $EnabledFeatures

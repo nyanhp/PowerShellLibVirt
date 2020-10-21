@@ -1,4 +1,4 @@
-function New-LibVirtCpuConfiguration
+function New-PoshLibVirtCpuConfiguration
 {
     [CmdletBinding(DefaultParameterSetName = 'Model')]
     param
@@ -19,17 +19,7 @@ function New-LibVirtCpuConfiguration
         [switch]
         $IsHostCpu
     )
-
-    $cpuConfig = [LibVirtCpuConfiguration]::new()
-
-    if ($IsHostCpu.IsPresent)
-    {
-        $cpuConfig.IsHostCpu = $true
-        return $cpuConfig
-    }
     
-    $cpuConfig.Model = $Model
-    $cpuConfig.EnabledFeatures = $EnabledFeature
-    $cpuConfig.DisabledFeatures = $DisabledFeature
-    $cpuConfig
+    $classParameters = Clear-PSBoundParameters -ParameterDictionary $PSBoundParameters
+    [PoshLibVirtCpuConfiguration]$classParameters
 }

@@ -1,4 +1,4 @@
-﻿New-PSFLicense -Product 'LibVirt' -Manufacturer 'jhp' -ProductVersion $script:ModuleVersion -ProductType Module -Name MIT -Version "1.0.0.0" -Date (Get-Date "2020-10-20") -Text @"
+﻿New-PSFLicense -Product 'PoshLibVirt' -Manufacturer 'jhp' -ProductVersion $script:ModuleVersion -ProductType Module -Name MIT -Version "1.0.0.0" -Date (Get-Date "2020-10-20") -Text @"
 Copyright (c) 2020 jhp
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

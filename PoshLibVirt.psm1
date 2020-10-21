@@ -1,9 +1,9 @@
 ﻿$script:ModuleRoot = $PSScriptRoot
-$script:ModuleVersion = (Import-PowerShellDataFile -Path "$($script:ModuleRoot)\LibVirt.psd1").ModuleVersion
+$script:ModuleVersion = (Import-PowerShellDataFile -Path "$($script:ModuleRoot)\PoshLibVirt.psd1").ModuleVersion
 
 # Detect whether at some level dotsourcing was enforced
-$script:doDotSource = Get-PSFConfigValue -FullName LibVirt.Import.DoDotSource -Fallback $false
-if ($LibVirt_dotsourcemodule) { $script:doDotSource = $true }
+$script:doDotSource = Get-PSFConfigValue -FullName PoshLibVirt.Import.DoDotSource -Fallback $false
+if ($PoshLibVirt_dotsourcemodule) { $script:doDotSource = $true }
 
 <#
 Note on Resolve-Path:
@@ -14,8 +14,8 @@ This is important when testing for paths.
 #>
 
 # Detect whether at some level loading individual module files, rather than the compiled module was enforced
-$importIndividualFiles = Get-PSFConfigValue -FullName LibVirt.Import.IndividualFiles -Fallback $false
-if ($LibVirt_importIndividualFiles) { $importIndividualFiles = $true }
+$importIndividualFiles = Get-PSFConfigValue -FullName PoshLibVirt.Import.IndividualFiles -Fallback $false
+if ($PoshLibVirt_importIndividualFiles) { $importIndividualFiles = $true }
 if (Test-Path (Resolve-PSFPath -Path "$($script:ModuleRoot)\..\.git" -SingleItem -NewChild)) { $importIndividualFiles = $true }
 if ("<was not compiled>" -eq '<was not compiled>') { $importIndividualFiles = $true }
 	

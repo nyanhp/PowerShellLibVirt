@@ -1,11 +1,11 @@
 ﻿TOPIC
-	about_LibVirt
+	about_PoshLibVirt
 	
 SHORT DESCRIPTION
-	Explains how to use the LibVirt powershell module
+	Explains how to use the PoshLibVirt powershell module
 	
 LONG DESCRIPTION
 	<Insert Content here>
 
 KEYWORDS
-	LibVirt
+	PoshLibVirt

@@ -1,4 +1,4 @@
-class LibVirtDiskConfiguration
+class PoshLibVirtDiskConfiguration
 {
     [string] $Path
     [string] $StoragePoolName
@@ -12,7 +12,7 @@ class LibVirtDiskConfiguration
 
     [string] ToString()
     {
-        $str = ''
+        $str = '--disk '
         if ($this.Path) {$str = -join @($str,"path=$($this.Path),")}
         if ($this.StoragePoolName) {$str = -join @($str,"pool=$($this.StoragePoolName),")}
         if ($this.Volume) {$str = -join @($str,"vol=$($this.Volume),")}

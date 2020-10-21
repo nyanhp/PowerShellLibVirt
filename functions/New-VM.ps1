@@ -30,13 +30,13 @@ function New-Vm
         [uint16]
         $Threads,
 
-        [LibVirtCpuConfiguration]
+        [PoshLibVirtCpuConfiguration]
         $Cpu,
 
         [uint16[]]
         $CpuSet,
 
-        [LibVirtDiskConfiguration[]]
+        [PoshLibVirtDiskConfiguration[]]
         $StorageConfiguration,
 
         [string]
@@ -45,7 +45,7 @@ function New-Vm
         [string]
         $OsVariant,
 
-        [LibVirtBootConfiguration]
+        [PoshLibVirtBootConfiguration]
         $BootConfiguration,
 
         [string]
@@ -63,7 +63,7 @@ function New-Vm
         [switch]
         $LiveCd,
 
-        [LibVirtNetworkConfiguration[]]
+        [PoshLibVirtNetworkConfiguration[]]
         $NetworkConfiguration,
 
         [Parameter(ParameterSetName = 'fv')]

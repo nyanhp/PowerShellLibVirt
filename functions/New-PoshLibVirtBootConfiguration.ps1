@@ -1,4 +1,4 @@
-function New-LibVirtBootConfiguration
+function New-PoshLibVirtBootConfiguration
 {
     [CmdletBinding(DefaultParameterSetName='NoKernel')]
     param
@@ -6,7 +6,7 @@ function New-LibVirtBootConfiguration
         [Parameter(ParameterSetName = 'NoKernel')]
         [Parameter(ParameterSetName = 'Kernel')]
         [string[]]
-        $BootDevice,
+        $BootDevices,
 
         [Parameter(Mandatory, ParameterSetName = 'Kernel')]
         [string]
@@ -22,14 +22,10 @@ function New-LibVirtBootConfiguration
 
         [Parameter(ParameterSetName = 'NoKernel')]
         [Parameter(ParameterSetName = 'Kernel')]
-        [switch] 
+        [bool] 
         $BiosMenuEnabled
     )
 
-    $bootConfig = [LibVirtBootConfiguration]::new()
-    $bootConfig.BootDevices = $BootDevice
-    $bootConfig.Kernel = $Kernel
-    $bootConfig.KernelArguments = $KernelArguments
-    $bootConfig.BiosMenuEnabled = $BiosMenuEnabled.IsPresent
-    $bootConfig
+    $classParameters = Clear-PSBoundParameters -ParameterDictionary $PSBoundParameters
+    [PoshLibVirtBootConfiguration]$classParameters
 }
