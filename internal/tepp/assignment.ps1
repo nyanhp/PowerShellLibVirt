@@ -5,3 +5,4 @@ Register-PSFTeppArgumentCompleter -Command Get-Alcohol -Parameter Type -Name Lib
 Register-PSFTeppArgumentCompleter -Command New-Vm -Parameter OsType -Name LibVirt.OsType
 Register-PSFTeppArgumentCompleter -Command New-Vm -Parameter OsVariant -Name LibVirt.OsVariant
 Register-PSFTeppArgumentCompleter -Command New-Vm -Parameter HypervisorType -Name LibVirt.HyperVisorType
+Register-PSFTeppArgumentCompleter -Command New-LibVirtCpuConfiguration -Parameter Model -Name LibVirt.CpuModel

@@ -1,6 +1,6 @@
 function New-Vm
 {
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess)]
     param
     (
         [Parameter(Mandatory)]
@@ -63,7 +63,7 @@ function New-Vm
         [switch]
         $LiveCd,
 
-        [LibVirtNetwork[]]
+        [LibVirtNetworkConfiguration[]]
         $NetworkConfiguration,
 
         [Parameter(ParameterSetName = 'fv')]
@@ -88,13 +88,9 @@ function New-Vm
         $NoAcpi
     )
 
-    # AL Windows: Floppy mounten unattend druff
-    # AL WIM file? Apply??
-    # AL Linux: dd /if /of? oder ISO + ks.cfg/autoyast
-
     $commandLine = @(
         "--name=$ComputerName"
-        if (-not [string]::IsNullOrWhiteSpace($Description)) { "--description=$Description" }
+        if (-not [string]::IsNullOrWhiteSpace($Description)) { "--description=`"$Description`"" }
         "--ram=$($Memory/1MB)"
         if ($CpuSet.Count -gt 0) {"--cpuset=$($CpuSet -join ',')"}
         if (-not [string]::IsNullOrWhiteSpace($CdRom)) {"--cdrom==$CdRom"}
@@ -127,6 +123,11 @@ function New-Vm
         $commandLine += '--nodisks'
     }
 
+    if ($null -ne $Cpu)
+    {
+        $commandLine += $Cpu.ToString()
+    }
+
     foreach ($nic in $NetworkConfiguration)
     {
 
@@ -135,6 +136,11 @@ function New-Vm
     if ($NetworkConfiguration.Count -eq 0)
     {
         $commandLine += '--nonetworks'
+    }
+
+    if (-not $PSCmdlet.ShouldProcess($ComputerName,'Create new VM'))
+    {
+        return "virt-install $($commandLine -join ' ')"
     }
 
     Start-Process -FilePath 'virt-install' -ArgumentList $commandLine -Wait
