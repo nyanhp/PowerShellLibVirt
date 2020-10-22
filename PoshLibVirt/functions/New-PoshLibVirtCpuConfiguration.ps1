@@ -21,5 +21,5 @@ function New-PoshLibVirtCpuConfiguration
     )
     
     $classParameters = Clear-PSBoundParameters -ParameterDictionary $PSBoundParameters
-    [PoshLibVirtCpuConfiguration]$classParameters
+    [PoshLibVirt.CpuConfiguration]$classParameters
 }

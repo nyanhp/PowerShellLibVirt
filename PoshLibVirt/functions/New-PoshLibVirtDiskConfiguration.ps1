@@ -36,5 +36,5 @@
     )
 
     $classParameters = Clear-PSBoundParameters -ParameterDictionary $PSBoundParameters
-    [PoshLibVirtDiskConfiguration]$classParameters
+    [PoshLibVirtDisk.Configuration]$classParameters
 }

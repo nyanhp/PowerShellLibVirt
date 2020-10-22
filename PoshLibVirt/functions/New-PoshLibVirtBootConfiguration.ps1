@@ -27,5 +27,5 @@ function New-PoshLibVirtBootConfiguration
     )
 
     $classParameters = Clear-PSBoundParameters -ParameterDictionary $PSBoundParameters
-    [PoshLibVirtBootConfiguration]$classParameters
+    [PoshLibVirt.BootConfiguration]$classParameters
 }

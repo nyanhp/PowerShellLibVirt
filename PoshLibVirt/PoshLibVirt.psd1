@@ -32,7 +32,7 @@
 	)
 	
 	# Assemblies that must be loaded prior to importing this module
-	# RequiredAssemblies = @('bin\PoshLibVirt.dll')
+	RequiredAssemblies = @('bin/PoshLibVirt.dll')
 	
 	# Type files (.ps1xml) to be loaded when importing this module
 	# TypesToProcess = @('xml\PoshLibVirt.Types.ps1xml')

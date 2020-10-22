@@ -19,7 +19,7 @@
 
         [xml] $vmInfo = virsh dumpxml $vm 2>$null
         
-        foreach ($disk in ($vmInfo.SelectNodes('/domain/devices/disk'))
+        foreach ($disk in ($vmInfo.SelectNodes('/domain/devices/disk')))
         {
         [PoshLibVirtDiskConfiguration]::new()
         }
