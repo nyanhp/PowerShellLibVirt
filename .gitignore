@@ -1,1 +1,23 @@
-/tmp
+﻿/tmp
+
+# ignore the settings folder and files for VSCode and PSS
+.vscode/*
+*.psproj
+*TempPoint*
+
+# Ignore staging info from Visual Studio
+library/PoshLibVirt/.vs/*
+library/PoshLibVirt/PoshLibVirt/bin/*
+library/PoshLibVirt/PoshLibVirt/obj/*
+
+# ignore PowerShell Studio MetaData
+PoshLibVirt/PoshLibVirt.psproj
+PoshLibVirt/PoshLibVirt.psproj.bak
+PoshLibVirt/PoshLibVirt.psprojs
+PoshLibVirt/PoshLibVirt.psproj
+
+# ignore the TestResults
+TestResults/*
+
+# ignore the publishing Directory
+publish/*
