@@ -19,9 +19,9 @@
 
         [xml] $vmInfo = virsh dumpxml $vm 2>$null
         
-        foreach ($disk in ($vmInfo.SelectNodes('/domain/devices/disk')))
+        foreach ($disk in ($vmInfo.SelectNodes('/domain/devices/disk').Where({$_.device -eq 'disk'})))
         {
-        [PoshLibVirtDiskConfiguration]::new()
+            Get-StoragePool | Get-StorageVolume | Where-Object {$_.Path -eq $disk.source.file}
         }
     }
 }

@@ -8,7 +8,7 @@ namespace PoshLibVirt
         public string StoragePoolName { get; set; }
         public string Volume { get; set; }
         public Device Device { get; set; }
-        public long? Size { get; set; }
+        public ulong? Size { get; set; }
         public Permission Permission { get; set; }
         public bool Sparse { get; set; }
         public CacheMode CacheMode { get; set; }
