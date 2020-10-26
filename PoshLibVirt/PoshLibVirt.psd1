@@ -1,38 +1,38 @@
 ﻿@{
 	# Script module or binary module file associated with this manifest
-	RootModule          = 'PoshLibVirt.psm1'
+	RootModule           = 'PoshLibVirt.psm1'
 	
 	# Version number of this module.
-	ModuleVersion       = '1.0.0'
+	ModuleVersion        = '1.0.0'
 	
 	# ID used to uniquely identify this module
-	GUID                = '59a3dc31-a48e-4e87-8431-b057fddb1fb3'
+	GUID                 = '59a3dc31-a48e-4e87-8431-b057fddb1fb3'
 	
 	# Author of this module
-	Author              = 'jhp'
+	Author               = 'jhp'
 	
 	# Company or vendor of this module
-	CompanyName         = 'Jan-Hendrik Peters'
+	CompanyName          = 'Jan-Hendrik Peters'
 	
 	# Copyright statement for this module
-	Copyright           = 'Copyright (c) 2020 jhp'
+	Copyright            = 'Copyright (c) 2020 jhp'
 	
 	# Description of the functionality provided by this module
-	Description         = 'This module aims to provide access to libvirt on Linux. Requires libvirt-client, iproute2 binaries'
+	Description          = 'This module aims to provide access to libvirt on Linux. Requires libvirt-client, iproute2 binaries'
 	
 	# Minimum version of the Windows PowerShell engine required by this module
-	PowerShellVersion   = '6.0'
+	PowerShellVersion    = '6.0'
 
 	CompatiblePSEditions = 'Core'
 	
 	# Modules that must be imported into the global environment prior to importing
 	# this module
-	RequiredModules     = @(
+	RequiredModules      = @(
 		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.4.150' }
 	)
 	
 	# Assemblies that must be loaded prior to importing this module
-	RequiredAssemblies = @('bin/PoshLibVirt.dll')
+	RequiredAssemblies   = @('bin/PoshLibVirt.dll')
 	
 	# Type files (.ps1xml) to be loaded when importing this module
 	# TypesToProcess = @('xml\PoshLibVirt.Types.ps1xml')
@@ -41,60 +41,62 @@
 	# FormatsToProcess = @('xml\PoshLibVirt.Format.ps1xml')
 	
 	# Functions to export from this module
-	FunctionsToExport   = @(
-		'Checkpoint-VM',
-		'Clear-StorageVolumeContent',
-		'Copy-StorageVolume',
-		'Get-NetworkBridge',
-		'Get-StoragePool',
-		'Get-StorageVolume',
-		'Get-VirtualNetwork',
-		'New-PoshLibVirtBootConfiguration',
-		'New-PoshLibVirtCpuConfiguration',
-		'New-PoshLibVirtDiskConfiguration',
-		'New-NetworkBridge',
-		'New-StoragePool',
-		'New-StorageVolume',
-		'New-VirtualNetwork',
-		'New-VM',
-		'Read-StorageVolumeContent',
-		'Remove-NetworkBridge',
-		'Remove-StoragePool',
-		'Remove-StorageVolume',
-		'Remove-VirtualNetwork',
-		'Remove-VM',
-		'Resize-StorageVolume',
-		'Restore-VM',
-		'Resume-VM',
-		'Set-StoragePool',
-		'Set-VM',
-		'Start-StoragePool',
-		'Start-VirtualNetwork',
-		'Start-VM',
-		'Stop-StoragePool',
-		'Stop-VirtualNetwork',
-		'Stop-VM',
-		'Suspend-VM',
+	FunctionsToExport    = @(
+		'Checkpoint-Vm'
+		'Clear-StorageVolumeContent'
+		'Copy-StorageVolume'
+		'Get-NetworkBridge'
+		'Get-StoragePool'
+		'Get-StorageVolume'
+		'Get-VirtualNetwork'
+		'Get-Vm'
+		'New-NetworkBridge'
+		'New-PoshLibVirtBootConfiguration'
+		'New-PoshLibVirtCpuConfiguration'
+		'New-PoshLibVirtDiskConfiguration'
+		'New-StoragePool'
+		'New-StorageVolume'
+		'New-VirtualNetwork'
+		'New-Vm'
+		'Read-StorageVolumeContent'
+		'Remove-NetworkBridge'
+		'Remove-StoragePool'
+		'Remove-StorageVolume'
+		'Remove-VirtualNetwork'
+		'Remove-Vm'
+		'Resize-StorageVolume'
+		'Restart-Vm'
+		'Restore-Vm'
+		'Resume-Vm'
+		'Set-StoragePool'
+		'Set-Vm'
+		'Start-StoragePool'
+		'Start-VirtualNetwork'
+		'Start-Vm'
+		'Stop-StoragePool'
+		'Stop-VirtualNetwork'
+		'Stop-Vm'
+		'Suspend-Vm'
 		'Write-StorageVolumeContent'
 	)
 	
 	# Cmdlets to export from this module
-	CmdletsToExport     = ''
+	CmdletsToExport      = ''
 	
 	# Variables to export from this module
-	VariablesToExport   = ''
+	VariablesToExport    = ''
 	
 	# Aliases to export from this module
-	AliasesToExport     = ''
+	AliasesToExport      = ''
 	
 	# List of all modules packaged with this module
-	ModuleList          = @()
+	ModuleList           = @()
 	
 	# List of all files packaged with this module
-	FileList            = @()
+	FileList             = @()
 	
 	# Private data to pass to the module specified in ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
-	PrivateData         = @{
+	PrivateData          = @{
 		
 		#Support for PowerShellGet galleries.
 		PSData = @{
