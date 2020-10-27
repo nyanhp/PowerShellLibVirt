@@ -1,22 +1,49 @@
 pool:
   name: Hosted VS2017
-steps:
-- task: PowerShell@2
-  displayName: Prerequisites
-  inputs:
-    pwsh: true
-    targetType: filePath
-    filePath: './build/vsts-prerequisites.ps1'
 
-- task: PowerShell@2
-  displayName: Validate
-  inputs:
-    pwsh: true
-    targetType: filePath
-    filePath: './build/vsts-validate.ps1'
+variables:
+- group: api-keys
 
-- task: PublishTestResults@2
-  displayName: 'Publish Test Results **/TEST-*.xml'
-  inputs:
-    testResultsFormat: NUnit
-  condition: always()
+stages:
+- stage: build
+  jobs:
+    - job: BuildModule
+      steps:
+      - task: PowerShell@2
+        displayName: Prerequisites
+        inputs:
+          pwsh: true
+          targetType: filePath
+          filePath: './build/vsts-prerequisites.ps1'
+      - task: PowerShell@2
+        displayName: Validate
+        inputs:
+          pwsh: true
+          targetType: filePath
+          filePath: './build/vsts-validate.ps1'
+      - task: PublishTestResults@2
+        displayName: 'Publish Test Results **/TEST-*.xml'
+        inputs:
+          testResultsFormat: NUnit
+        condition: always()
+- stage: deploy
+  dependsOn: build
+  condition: and(succeeded('build'), eq(variables['build.sourceBranch'], 'refs/heads/mimir'))
+  jobs:
+    - job: ReleaseToTheWild
+      steps:
+      - task: PowerShell@2
+        displayName: Prerequisites
+        inputs:
+          pwsh: true
+          targetType: filePath
+          filePath: './build/vsts-prerequisites.ps1'
+      - task: PowerShell@2
+        displayName: Deploy
+        env:
+          ApiKey: $(ApiKey)
+        inputs:
+          pwsh: true
+          targetType: filePath
+          filePath: './build/vsts-build.ps1'
+          arguments: -ApiKey $(ApiKey)
