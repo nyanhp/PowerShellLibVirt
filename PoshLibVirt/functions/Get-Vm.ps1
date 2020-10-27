@@ -33,7 +33,7 @@
         $vmObject.Uuid = $vmInfo.domain.uuid
         $vmObject.Memory = [long]$vmInfo.domain.memory.InnerText * 1kb
         $vmObject.CurrentMemory = [long]$vmInfo.domain.currentMemory.InnerText * 1kb
-        
+
         $vmObject.Storage = foreach ($disk in ($vmInfo.SelectNodes('/domain/devices/disk').Where( { $_.device -eq 'disk' })))
         {
             Get-StoragePool | Get-StorageVolume | Where-Object { $_.Path -eq $disk.source.file }

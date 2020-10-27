@@ -22,7 +22,7 @@
 
         [Parameter(ParameterSetName = 'NoKernel')]
         [Parameter(ParameterSetName = 'Kernel')]
-        [bool] 
+        [bool]
         $BiosMenuEnabled
     )
 

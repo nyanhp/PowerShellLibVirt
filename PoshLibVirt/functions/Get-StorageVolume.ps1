@@ -20,7 +20,7 @@
         if ($Pool) {$PoolName = $Pool.Name}
 
         if (-not (Get-StoragePool -Name $PoolName))
-        { 
+        {
             Write-PSFMessage -String Error.PoolNotFound -StringValues $PoolName
             return
         }

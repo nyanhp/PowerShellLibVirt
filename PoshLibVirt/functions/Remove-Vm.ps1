@@ -47,7 +47,7 @@
                 if ($Storage.IsPresent) { '--remove-all-storage' }
                 if ($WipeStorage.IsPresent) { '--wipe-storage' }
             )
-            
+
             Start-Process -FilePath virsh -ArgumentList $cmdLine -Wait
         }
     }

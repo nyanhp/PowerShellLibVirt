@@ -13,7 +13,14 @@ $exceptions['LegalSurplus'] = @(
 )
 #>
 $exceptions['LegalSurplus'] = @(
-
+    'Verbose.Checkpoint'
+    'Verbose.CreateVm'
+    'Verbose.UndefineVm'
+    'Verbose.RebootVm'
+    'Verbose.RestoreCheckpoint'
+    'Verbose.StartVm'
+    'Verbose.StopVm'
+    'Verbose.SaveVm'
 )
 
 $exceptions

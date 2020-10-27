@@ -9,11 +9,11 @@
 
         [string]
         $Description,
-        
+
         [Parameter(Mandatory)]
         [uint64]
         $Memory,
- 
+
         [Parameter(Mandatory)]
         [uint16]
         $CpuCount,
@@ -23,10 +23,10 @@
 
         [uint16]
         $Sockets,
-        
+
         [uint16]
         $Cores,
-        
+
         [uint16]
         $Threads,
 
