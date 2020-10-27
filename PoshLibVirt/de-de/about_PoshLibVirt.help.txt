@@ -5,7 +5,7 @@ SHORT DESCRIPTION
 	Explains how to use the PoshLibVirt powershell module
 	
 LONG DESCRIPTION
-	<Insert Content here>
+	It's a cool module.
 
 KEYWORDS
 	PoshLibVirt
