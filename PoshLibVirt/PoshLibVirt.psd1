@@ -42,40 +42,41 @@
 
 	# Functions to export from this module
 	FunctionsToExport    = @(
-		'Checkpoint-Vm'
-		'Clear-StorageVolumeContent'
-		'Copy-StorageVolume'
-		'Get-NetworkBridge'
-		'Get-StoragePool'
-		'Get-StorageVolume'
-		'Get-VirtualNetwork'
-		'Get-Vm'
-		'New-NetworkBridge'
-		'New-PoshLibVirtBootConfiguration'
-		'New-PoshLibVirtCpuConfiguration'
-		'New-PoshLibVirtDiskConfiguration'
-		'New-StoragePool'
-		'New-StorageVolume'
-		'New-VirtualNetwork'
-		'New-Vm'
-		'Read-StorageVolumeContent'
-		'Remove-NetworkBridge'
-		'Remove-StoragePool'
-		'Remove-StorageVolume'
-		'Remove-VirtualNetwork'
-		'Remove-Vm'
-		'Resize-StorageVolume'
-		'Restart-Vm'
-		'Restore-Vm'
-		'Set-StoragePool'
-		'Set-Vm'
-		'Start-StoragePool'
-		'Start-VirtualNetwork'
-		'Start-Vm'
-		'Stop-StoragePool'
-		'Stop-VirtualNetwork'
-		'Stop-Vm'
-		'Suspend-Vm'
+		'Checkpoint-Vm',
+		'Clear-StorageVolumeContent',
+		'Copy-StorageVolume',
+		'Get-NetworkBridge',
+		'Get-StoragePool',
+		'Get-StorageVolume',
+		'Get-VirtualNetwork',
+		'Get-Vm',
+		'Get-VmSnapshot',
+		'New-NetworkBridge',
+		'New-PoshLibVirtBootConfiguration',
+		'New-PoshLibVirtCpuConfiguration',
+		'New-PoshLibVirtDiskConfiguration',
+		'New-StoragePool',
+		'New-StorageVolume',
+		'New-VirtualNetwork',
+		'New-Vm',
+		'Read-StorageVolumeContent',
+		'Remove-NetworkBridge',
+		'Remove-StoragePool',
+		'Remove-StorageVolume',
+		'Remove-VirtualNetwork',
+		'Remove-Vm',
+		'Resize-StorageVolume',
+		'Restart-Vm',
+		'Restore-VmSnapshot',
+		'Set-StoragePool',
+		'Set-Vm',
+		'Start-StoragePool',
+		'Start-VirtualNetwork',
+		'Start-Vm',
+		'Stop-StoragePool',
+		'Stop-VirtualNetwork',
+		'Stop-Vm',
+		'Suspend-Vm',
 		'Write-StorageVolumeContent'
 	)
 
