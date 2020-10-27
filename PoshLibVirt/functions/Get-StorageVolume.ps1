@@ -1,5 +1,6 @@
 ﻿function Get-StorageVolume
 {
+    [OutputType([PoshLibVirt.StorageVolume])]
     [CmdletBinding(DefaultParameterSetName = 'Pool')]
     param
     (

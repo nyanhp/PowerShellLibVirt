@@ -1,5 +1,7 @@
 ﻿function Get-StoragePool
 {
+
+    [OutputType([PoshLibVirt.StoragePool])]
     [CmdletBinding()]
     param
     (

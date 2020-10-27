@@ -1,5 +1,6 @@
 ﻿function New-PoshLibVirtBootConfiguration
 {
+    [OutputType([PoshLibVirt.BootConfiguration])]
     [CmdletBinding(DefaultParameterSetName='NoKernel')]
     param
     (

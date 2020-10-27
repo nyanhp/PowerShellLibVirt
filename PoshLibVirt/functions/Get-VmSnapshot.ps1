@@ -1,5 +1,6 @@
 ﻿function Get-VmSnapshot
 {
+    [OutputType([PoshLibVirt.Snapshot])]
     [CmdletBinding(DefaultParameterSetName='Computer')]
     param
     (

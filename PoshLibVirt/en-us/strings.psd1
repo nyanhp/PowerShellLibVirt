@@ -4,6 +4,7 @@
 	'Error.BridgeExists'             = 'Bridge {0} exists.'
 	'Error.PoolNotFound'             = 'Storage Pool {0} could not be found.'
 	'Error.VmNotFound'               = 'VM {0} could not be found'
+	'Error.VMDeploymentFailed'       = 'Deployment of {0} failed.'
 
 	'Warning.BridgeConnectionExists' = 'Bridge {0} adapter {1} already connected'
 

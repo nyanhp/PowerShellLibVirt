@@ -1,5 +1,6 @@
 ﻿function New-PoshLibVirtCpuConfiguration
 {
+    [OutputType([PoshLibVirt.CpuConfiguration])]
     [CmdletBinding(DefaultParameterSetName = 'Model')]
     param
     (

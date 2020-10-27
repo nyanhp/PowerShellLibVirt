@@ -1,6 +1,6 @@
 ﻿function Get-NetworkBridge
 {
-    [OutputType([PoshLibVirt.NetworkBridge])]
+    [OutputType([PoshLibVirt.NetworkBridge[]])]
     [CmdletBinding()]
     param
     (

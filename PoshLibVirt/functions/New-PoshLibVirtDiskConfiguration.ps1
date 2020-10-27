@@ -1,5 +1,6 @@
 ﻿function New-PoshLibVirtDiskConfiguration
 {
+    [OutputType([PoshLibVirt.DiskConfiguration])]
     [CmdletBinding()]
     param
     (
@@ -36,5 +37,5 @@
     )
 
     $classParameters = Clear-PSBoundParameters -ParameterDictionary $PSBoundParameters
-    [PoshLibVirtDisk.Configuration]$classParameters
+    [PoshLibVirt.DiskConfiguration]$classParameters
 }
