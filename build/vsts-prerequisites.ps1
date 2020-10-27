@@ -23,3 +23,5 @@ foreach ($module in $modules) {
     Install-Module $module -Force -SkipPublisherCheck -Repository $Repository
     Import-Module $module -Force -PassThru
 }
+
+dotnet build "$PSScriptRoot\..\library\PoshLibVirt"
