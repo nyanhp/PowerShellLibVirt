@@ -99,11 +99,13 @@
         if ($Import.IsPresent) {"--import"}
         if ($NoApic.IsPresent) {"--noapic"}
         if ($NoAcpi.IsPresent) {"--noacpi"}
+        if ($LiveCd.IsPresent) {"--livecd"}
         if ($FullVirtualization.IsPresent) {"--hvm"}
         if ($ParaVirtualization.IsPresent) {"--paravirt"}
         if ($Container.IsPresent) {"--container"}
         if (-not [string]::IsNullOrWhiteSpace($OsType)) {"--os-type=$OsType"}
         if (-not [string]::IsNullOrWhiteSpace($OsVariant)) {"--os-variant=$OsVariant"}
+        if (-not [string]::IsNullOrWhiteSpace($HypervisorType)) {"--virt-type=$HypervisorType"}
     )
 
     $cpuString = "--vcpus=$CpuCount"
@@ -136,6 +138,11 @@
     if ($NetworkConfiguration.Count -eq 0)
     {
         $commandLine += '--nonetworks'
+    }
+
+    if ($BootConfiguration)
+    {
+        # Do things
     }
 
     if (-not $PSCmdlet.ShouldProcess($ComputerName,(Get-PSFLocalizedString -Module PoshLibVirt -Name Verbose.CreateVm)))

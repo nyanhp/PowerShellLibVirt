@@ -1,23 +1,23 @@
 ﻿function Get-Vm
 {
     [OutputType([PoshLibVirt.VirtualMachine])]
-    [CmdletBinding(DefaultParameterSetName='List')]
+    [CmdletBinding(DefaultParameterSetName = 'List')]
     param
     (
-        [Parameter(ParameterSetName='List')]
+        [Parameter(ParameterSetName = 'List')]
         [string[]]
         $ComputerName = '*',
 
-        [Parameter(ParameterSetName='All')]
+        [Parameter(ParameterSetName = 'All')]
         [switch]
         $All
     )
 
-    [string[]] $allVm = virsh list --name --all | Where-Object {-not [string]::IsNullOrWhiteSpace($_)} | Foreach-Object {$_.Trim()}
-    [string[]] $runningVm = virsh list --name | Where-Object {-not [string]::IsNullOrWhiteSpace($_)} | Foreach-Object {$_.Trim()}
+    [string[]] $allVm = virsh list --name --all | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | Foreach-Object { $_.Trim() }
+    [string[]] $runningVm = virsh list --name | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | Foreach-Object { $_.Trim() }
     foreach ($name in $ComputerName)
     {
-        $vm = $allVm | Where-Object { $_ -like $name -or $All.IsPresent }
+        $vm = if ($All.IsPresent) { $allVm } else { $allVm | Where-Object { $_ -like $name } }
         $vmObject = [PoshLibVirt.VirtualMachine]::new()
 
         if (-not $vm)

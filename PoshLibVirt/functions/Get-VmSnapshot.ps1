@@ -30,7 +30,7 @@
         foreach ($machine in $Computer)
         {
             [string[]]$snappies = virsh snapshot-list --name --domain $machine.Name 2>$null | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | ForEach-Object { $_.Trim() }
-            foreach ($snap in $snappies)
+            foreach ($snap in ($snappies -like $Name))
             {
                 [xml] $snapXml = virsh snapshot-dumpxml --domain $machine.Name $snap
                 [PoshLibVirt.Snapshot]::new(
