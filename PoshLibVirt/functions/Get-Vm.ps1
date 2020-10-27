@@ -1,5 +1,6 @@
 ﻿function Get-Vm
 {
+    [OutputType([PoshLibVirt.VirtualMachine])]
     [CmdletBinding(DefaultParameterSetName='List')]
     param
     (

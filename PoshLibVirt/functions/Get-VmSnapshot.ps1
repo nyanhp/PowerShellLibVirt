@@ -1,6 +1,6 @@
 ﻿function Get-VmSnapshot
 {
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName='Computer')]
     param
     (
         [Parameter(Mandatory, ParameterSetName = 'Name', ValueFromPipeline, ValueFromPipelineByPropertyName)]
@@ -11,11 +11,35 @@
         [PoshLibVirt.VirtualMachine[]]
         $Computer,
 
-        [Parameter(Mandatory, ParameterSetName = 'Name')]
-        [Parameter(Mandatory, ParameterSetName = 'Object')]
+        [Parameter(ParameterSetName = 'Name')]
+        [Parameter(ParameterSetName = 'Object')]
         [string]
-        $Name
+        $Name = '*'
     )
 
-    virsh snapshot-dumpxml # ?
+    process
+    {
+        if (-not $Computer)
+        {
+            $Computer = foreach ($vmName in $ComputerName)
+            {
+                Get-Vm -ComputerName $vmName
+            }
+        }
+
+        foreach ($machine in $Computer)
+        {
+            [string[]]$snappies = virsh snapshot-list --name --domain $machine.Name 2>$null | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | ForEach-Object { $_.Trim() }
+            foreach ($snap in $snappies)
+            {
+                [xml] $snapXml = virsh snapshot-dumpxml --domain $machine.Name $snap
+                [PoshLibVirt.Snapshot]::new(
+                    $snapXml.domainsnapshot.name,
+                    $snapXml.domainsnapshot.description,
+                    $snapXml.domainsnapshot.state,
+                    $snapXml.domainsnapshot.creationTime
+                )
+            }
+        }
+    }
 }

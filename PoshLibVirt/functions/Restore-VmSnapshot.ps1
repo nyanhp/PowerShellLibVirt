@@ -3,27 +3,63 @@
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
     param
     (
-        [Parameter(Mandatory, ParameterSetName = 'Name', ValueFromPipeline, ValueFromPipelineByPropertyName)]
+        [Parameter(Mandatory, ParameterSetName = 'NameName', ValueFromPipeline, ValueFromPipelineByPropertyName)]
+        [Parameter(Mandatory, ParameterSetName = 'NameStart', ValueFromPipeline, ValueFromPipelineByPropertyName)]
+        [Parameter(Mandatory, ParameterSetName = 'NameSuspend', ValueFromPipeline, ValueFromPipelineByPropertyName)]
+        [Parameter(Mandatory, ParameterSetName = 'NameCurrent', ValueFromPipeline, ValueFromPipelineByPropertyName)]
         [string[]]
         $ComputerName,
 
-        [Parameter(Mandatory, ParameterSetName = 'Object', ValueFromPipeline)]
+        [Parameter(Mandatory, ParameterSetName = 'ObjectName', ValueFromPipeline)]
+        [Parameter(Mandatory, ParameterSetName = 'ObjectStart', ValueFromPipeline)]
+        [Parameter(Mandatory, ParameterSetName = 'ObjectSuspend', ValueFromPipeline)]
+        [Parameter(Mandatory, ParameterSetName = 'ObjectCurrent', ValueFromPipeline)]
         [PoshLibVirt.VirtualMachine[]]
         $Computer,
 
-        [Parameter(Mandatory, ParameterSetName = 'Name')]
-        [Parameter(Mandatory, ParameterSetName = 'Object')]
+        [Parameter(Mandatory, ParameterSetName = 'NameName')]
+        [Parameter(Mandatory, ParameterSetName = 'ObjectName')]
+        [Parameter(Mandatory, ParameterSetName = 'NameStart')]
+        [Parameter(Mandatory, ParameterSetName = 'ObjectStart')]
+        [Parameter(Mandatory, ParameterSetName = 'NameSuspend')]
+        [Parameter(Mandatory, ParameterSetName = 'ObjectSuspend')]
         [string]
-        $Name
+        $Name,
+
+        [Parameter(Mandatory, ParameterSetName = 'NameCurrent')]
+        [Parameter(Mandatory, ParameterSetName = 'ObjectCurrent')]
+        [switch]
+        $Current,
+
+        [Parameter(ParameterSetName = 'NameSuspend')]
+        [Parameter(ParameterSetName = 'ObjectSuspend')]
+        [switch]
+        $Suspend,
+
+        [Parameter(ParameterSetName = 'NameStart')]
+        [Parameter(ParameterSetName = 'ObjectStart')]
+        [switch]
+        $Start,
+
+        [Parameter(ParameterSetName = 'NameName')]
+        [Parameter(ParameterSetName = 'ObjectName')]
+        [Parameter(ParameterSetName = 'NameStart')]
+        [Parameter(ParameterSetName = 'ObjectStart')]
+        [Parameter(ParameterSetName = 'NameSuspend')]
+        [Parameter(ParameterSetName = 'ObjectSuspend')]
+        [Parameter(ParameterSetName = 'NameCurrent')]
+        [Parameter(ParameterSetName = 'ObjectCurrent')]
+        [switch]
+        $Force
     )
 
     process
     {
         if (-not $Computer)
         {
-            $Computer = foreach ($name in $ComputerName)
+            $Computer = foreach ($vmName in $ComputerName)
             {
-                Get-Vm -ComputerName $name
+                Get-Vm -ComputerName $vmName
             }
         }
 
@@ -34,7 +70,17 @@
                 continue
             }
 
-            virsh snapshot-restore --domain $Computer.Name $Name
+            $cmdLine = @(
+                'snapshot-revert'
+                "--domain $($machine.Name)"
+                if ($Name) { "--snapshotname $Name" }
+                if ($Current.IsPresent) { '--current' }
+                if ($Start.IsPresent) { '--running' }
+                if ($Suspend.IsPresent) { '--paused' }
+                if ($FOrce.IsPresent) { '--force' }
+            )
+
+            Start-Process -FilePath virsh -ArgumentList $cmdLine -Wait
         }
     }
 }

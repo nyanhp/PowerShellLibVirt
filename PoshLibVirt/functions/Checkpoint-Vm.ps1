@@ -42,9 +42,9 @@
     {
         if (-not $Computer)
         {
-            $Computer = foreach ($name in $ComputerName)
+            $Computer = foreach ($vmName in $ComputerName)
             {
-                Get-Vm -ComputerName $name
+                Get-Vm -ComputerName $vmName
             }
         }
 
