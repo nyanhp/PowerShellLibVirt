@@ -1,4 +1,4 @@
-function New-NetworkBridge
+﻿function New-NetworkBridge
 {
     [CmdletBinding()]
     param

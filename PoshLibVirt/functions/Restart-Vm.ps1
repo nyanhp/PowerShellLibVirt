@@ -26,9 +26,9 @@
             }
         }
 
-        foreach ($machine in $Computer.Where( { $_.PowerState -eq 'Running' }))
+        foreach ($machine in $Computer)
         {
-            if (-not $PSCmdlet.ShouldProcess('Stopping VM', $machine.Name))
+            if (-not $PSCmdlet.ShouldProcess($machine.Name,(Get-PSFLocalizedString -Module PoshLibVirt -Name Verbose.RebootVm)))
             {
                 continue
             }

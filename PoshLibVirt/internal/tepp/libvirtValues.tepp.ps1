@@ -22,3 +22,7 @@ Register-PSFTeppScriptblock -Name PoshLibVirt.AdapterName -ScriptBlock {
 Register-PSFTeppScriptblock -Name PoshLibVirt.BridgeName -ScriptBlock {
     (bridge -j link show | ConvertFrom-Json).master
 }
+
+Register-PSFTeppScriptblock -Name PoshLibVirt.Vm -ScriptBlock {
+    (Get-Vm -All).Name
+}

@@ -1,4 +1,4 @@
-﻿function Start-Vm
+﻿function Checkpoint-Vm
 {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
     param
@@ -9,7 +9,12 @@
 
         [Parameter(Mandatory, ParameterSetName = 'Object', ValueFromPipeline)]
         [PoshLibVirt.VirtualMachine[]]
-        $Computer
+        $Computer,
+
+        [Parameter(Mandatory, ParameterSetName = 'Name')]
+        [Parameter(Mandatory, ParameterSetName = 'Object')]
+        [string]
+        $Name
     )
 
     process
@@ -22,14 +27,14 @@
             }
         }
 
-        foreach ($machine in $Computer.Where( { $_.PowerState -ne 'Running' }))
+        foreach ($machine in $Computer)
         {
-            if (-not $PSCmdlet.ShouldProcess($machine.Name, (Get-PSFLocalizedString -Module PoshLibVirt -Name Verbose.StartVm)))
+            if (-not $PSCmdlet.ShouldProcess($machine.Name, (Get-PSFLocalizedString -Module PoshLibVirt -Name Verbose.Restore)))
             {
                 continue
             }
 
-            virsh start $machine.Uuid
+            virsh snapshot-restore --domain $Computer.Name $Name
         }
     }
 }

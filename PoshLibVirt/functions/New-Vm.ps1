@@ -1,4 +1,4 @@
-function New-Vm
+﻿function New-Vm
 {
     [CmdletBinding(SupportsShouldProcess)]
     param
@@ -138,7 +138,7 @@ function New-Vm
         $commandLine += '--nonetworks'
     }
 
-    if (-not $PSCmdlet.ShouldProcess($ComputerName,'Create new VM'))
+    if (-not $PSCmdlet.ShouldProcess($ComputerName,(Get-PSFLocalizedString -Module PoshLibVirt -Name Verbose.CreateVm)))
     {
         return "virt-install $($commandLine -join ' ')"
     }

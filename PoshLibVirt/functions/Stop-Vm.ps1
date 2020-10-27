@@ -1,4 +1,4 @@
-function Stop-Vm
+﻿function Stop-Vm
 {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param
@@ -28,7 +28,7 @@ function Stop-Vm
 
         foreach ($machine in $Computer.Where( { $_.PowerState -eq 'Running' }))
         {
-            if (-not $PSCmdlet.ShouldProcess('Stopping VM', $machine.Name))
+            if (-not $PSCmdlet.ShouldProcess($machine.Name, (Get-PSFLocalizedString -Module PoshLibVirt -Name Verbose.StopVm)))
             {
                 continue
             }

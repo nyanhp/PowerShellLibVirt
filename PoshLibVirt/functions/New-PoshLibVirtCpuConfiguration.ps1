@@ -1,4 +1,4 @@
-function New-PoshLibVirtCpuConfiguration
+﻿function New-PoshLibVirtCpuConfiguration
 {
     [CmdletBinding(DefaultParameterSetName = 'Model')]
     param

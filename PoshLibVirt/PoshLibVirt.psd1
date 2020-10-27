@@ -67,7 +67,6 @@
 		'Resize-StorageVolume'
 		'Restart-Vm'
 		'Restore-Vm'
-		'Resume-Vm'
 		'Set-StoragePool'
 		'Set-Vm'
 		'Start-StoragePool'

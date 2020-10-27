@@ -13,5 +13,6 @@ namespace PoshLibVirt
         public ulong Memory { get; set; }
         public ulong CurrentMemory { get; set; }
         public CpuConfiguration CpuConfiguration { get; set; }
+        public VirtualMachineState PowerState { get; set; }
     }
 }

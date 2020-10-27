@@ -1,4 +1,4 @@
-function Get-NetworkBridge
+﻿function Get-NetworkBridge
 {
     [CmdletBinding()]
     param

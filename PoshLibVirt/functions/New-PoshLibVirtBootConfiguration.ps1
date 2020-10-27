@@ -1,4 +1,4 @@
-function New-PoshLibVirtBootConfiguration
+﻿function New-PoshLibVirtBootConfiguration
 {
     [CmdletBinding(DefaultParameterSetName='NoKernel')]
     param

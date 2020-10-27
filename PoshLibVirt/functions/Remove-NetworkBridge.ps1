@@ -1,4 +1,4 @@
-function Remove-NetworkBridge
+﻿function Remove-NetworkBridge
 {
     [CmdletBinding()]
     param

@@ -4,3 +4,4 @@ Register-PSFTeppArgumentCompleter -Command New-Vm -Parameter HypervisorType -Nam
 Register-PSFTeppArgumentCompleter -Command New-PoshLibVirtCpuConfiguration -Parameter Model -Name PoshLibVirt.CpuModel
 Register-PSFTeppArgumentCompleter -Command New-NetworkBridge -Parameter AdapterName -Name PoshLibVirt.AdapterName
 Register-PSFTeppArgumentCompleter -Command New-NetworkBridge,Get-NetworkBridge,Remove-NetworkBridge -Parameter Name -Name PoshLibVirt.BridgeName
+Register-PSFTeppArgumentCompleter -Command Start-Vm, Stop-Vm, Suspend-Vm, Restart-Vm,Checkpoint-Vm,Remove-Vm, Restore-VmSnapshot -Parameter ComputerName -Name PoshLibVirt.Vm
