@@ -154,6 +154,8 @@ namespace PoshLibVirt
 
                 rootNode.AppendChild(qosNode);
             }
+            
+            if (null != ForwardingConfiguration)
             {
                 var fwNode = xmlNetwork.CreateElement("forward");
                 var fwModeAttr = xmlNetwork.CreateAttribute("mode");

@@ -55,6 +55,7 @@
 		'New-PoshLibVirtBootConfiguration',
 		'New-PoshLibVirtCpuConfiguration',
 		'New-PoshLibVirtDiskConfiguration',
+		'New-PoshLibVirtNetworkConfiguration',
 		'New-StoragePool',
 		'New-StorageVolume',
 		'New-VirtualNetwork',

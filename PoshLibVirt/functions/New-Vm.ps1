@@ -63,8 +63,8 @@
         [switch]
         $LiveCd,
 
-        [PoshLibVirt.NetworkConfiguration[]]
-        $NetworkConfiguration,
+        [PoshLibVirt.NetworkAdapter[]]
+        $NetworkAdapter,
 
         [Parameter(ParameterSetName = 'fv')]
         [switch]
@@ -92,27 +92,27 @@
         "--name=$ComputerName"
         if (-not [string]::IsNullOrWhiteSpace($Description)) { "--description=`"$Description`"" }
         "--ram=$($Memory/1MB)"
-        if ($CpuSet.Count -gt 0) {"--cpuset=$($CpuSet -join ',')"}
-        if (-not [string]::IsNullOrWhiteSpace($CdRom)) {"--cdrom==$CdRom"}
-        if (-not [string]::IsNullOrWhiteSpace($InstallationSource)) {"--location=$InstallationSource"}
-        if ($PxeBoot.IsPresent) {"--pxe"}
-        if ($Import.IsPresent) {"--import"}
-        if ($NoApic.IsPresent) {"--noapic"}
-        if ($NoAcpi.IsPresent) {"--noacpi"}
-        if ($LiveCd.IsPresent) {"--livecd"}
-        if ($FullVirtualization.IsPresent) {"--hvm"}
-        if ($ParaVirtualization.IsPresent) {"--paravirt"}
-        if ($Container.IsPresent) {"--container"}
-        if (-not [string]::IsNullOrWhiteSpace($OsType)) {"--os-type=$OsType"}
-        if (-not [string]::IsNullOrWhiteSpace($OsVariant)) {"--os-variant=$OsVariant"}
-        if (-not [string]::IsNullOrWhiteSpace($HypervisorType)) {"--virt-type=$HypervisorType"}
+        if ($CpuSet.Count -gt 0) { "--cpuset=$($CpuSet -join ',')" }
+        if (-not [string]::IsNullOrWhiteSpace($CdRom)) { "--cdrom==$CdRom" }
+        if (-not [string]::IsNullOrWhiteSpace($InstallationSource)) { "--location=$InstallationSource" }
+        if ($PxeBoot.IsPresent) { "--pxe" }
+        if ($Import.IsPresent) { "--import" }
+        if ($NoApic.IsPresent) { "--noapic" }
+        if ($NoAcpi.IsPresent) { "--noacpi" }
+        if ($LiveCd.IsPresent) { "--livecd" }
+        if ($FullVirtualization.IsPresent) { "--hvm" }
+        if ($ParaVirtualization.IsPresent) { "--paravirt" }
+        if ($Container.IsPresent) { "--container" }
+        if (-not [string]::IsNullOrWhiteSpace($OsType)) { "--os-type=$OsType" }
+        if (-not [string]::IsNullOrWhiteSpace($OsVariant)) { "--os-variant=$OsVariant" }
+        if (-not [string]::IsNullOrWhiteSpace($HypervisorType)) { "--virt-type=$HypervisorType" }
     )
 
     $cpuString = "--vcpus=$CpuCount"
-    if ($MaxCpuCount -gt 0) {$cpuString += ",maxvcpus=$MaxCpuCount"}
-    if ($Sockets -gt 0) {$cpuString += ",sockets=$Sockets"}
-    if ($Cores -gt 0) {$cpuString += ",cores=$Cores"}
-    if ($Threads -gt 0) {$cpuString += ",threads=$Threads"}
+    if ($MaxCpuCount -gt 0) { $cpuString += ",maxvcpus=$MaxCpuCount" }
+    if ($Sockets -gt 0) { $cpuString += ",sockets=$Sockets" }
+    if ($Cores -gt 0) { $cpuString += ",cores=$Cores" }
+    if ($Threads -gt 0) { $cpuString += ",threads=$Threads" }
     $commandLine += $cpuString
 
     foreach ($disk in $StorageConfiguration)
@@ -130,12 +130,23 @@
         $commandLine += $Cpu.ToString()
     }
 
-    foreach ($nic in $NetworkConfiguration)
+    foreach ($nic in $NetworkAdapter)
     {
+        if ($nic.NetworkName -and -not (Get-VirtualNetwork -Name $nic.NetworkName))
+        {
+            Write-PSFMessage -String 'Error.VmNetworkNotFound'  -StringValues $nic.NetworkName -Level Error
+            return
+        }
 
+        if ($nic.BridgeName -and -not (Get-NetworkBridge -Name $nic.BridgeName))
+        {
+            Write-PSFMessage -String 'Error.VmBridgeNotFound'  -StringValues $nic.BridgeName -Level Error
+            return
+        }
+        $commandLine += $nic.ToString()
     }
 
-    if ($NetworkConfiguration.Count -eq 0)
+    if ($NetworkAdapter.Count -eq 0)
     {
         $commandLine += '--nonetworks'
     }
@@ -145,7 +156,7 @@
         # Do things
     }
 
-    if (-not $PSCmdlet.ShouldProcess($ComputerName,(Get-PSFLocalizedString -Module PoshLibVirt -Name Verbose.CreateVm)))
+    if (-not $PSCmdlet.ShouldProcess($ComputerName, (Get-PSFLocalizedString -Module PoshLibVirt -Name Verbose.CreateVm)))
     {
         Write-PSFMessage -Message "virt-install $($commandLine -join ' ')"
     }

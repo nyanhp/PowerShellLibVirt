@@ -1,4 +1,4 @@
-﻿function Checkpoint-Vm
+﻿function Restore-VmSnapshot
 {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
     param
