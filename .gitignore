@@ -10,6 +10,7 @@ library/PoshLibVirt/.vs/*
 library/PoshLibVirt/PoshLibVirt/bin/*
 library/PoshLibVirt/PoshLibVirt/obj/*
 PoshLibVirt/bin
+PoshLibVirt-help.xml
 
 # ignore PowerShell Studio MetaData
 PoshLibVirt/PoshLibVirt.psproj
