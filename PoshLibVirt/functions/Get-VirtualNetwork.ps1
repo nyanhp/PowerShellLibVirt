@@ -18,14 +18,16 @@
 
             [xml] $networkInfo = virsh net-dumpxml $network
             $networkObject = [PoshLibVirt.NetworkConfiguration]::new()
-            # TODO TODO
-            $networkObject.Type = $networkInfo.network.type
-            $networkObject.Capacity = $networkInfo.network.capacity.InnerText
-            $networkObject.AvailableBytes = $networkInfo.network.available.InnerText
-            $networkObject.AllocatedBytes = $networkInfo.network.allocation.InnerText
-            $networkObject.TargetPath = $networkInfo.network.target.path
             $networkObject.Name = $networkInfo.network.name
             $networkObject.Uuid = $networkInfo.network.uuid
+            $networkObject.BridgeName = $networkInfo.network.bridge.Name
+            foreach ($address in $networkInfo.network.ip)
+            {
+                $networkObject.IpAddresses.Add([PoshLibVirt.IpEntry]@{
+                    IpAddress = $address.address
+                    NetworkMask = $address.netmask
+                })
+            }
             $networkObject
         }
     }
