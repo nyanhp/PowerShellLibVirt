@@ -8,7 +8,7 @@
         [Parameter(Mandatory, ParameterSetName = 'NameSuspend', ValueFromPipeline, ValueFromPipelineByPropertyName)]
         [Parameter(Mandatory, ParameterSetName = 'NameCurrent', ValueFromPipeline, ValueFromPipelineByPropertyName)]
         [string[]]
-        $ComputerName,
+        $VmName,
 
         [Parameter(Mandatory, ParameterSetName = 'ObjectName', ValueFromPipeline)]
         [Parameter(Mandatory, ParameterSetName = 'ObjectStart', ValueFromPipeline)]
@@ -57,7 +57,7 @@
     {
         if (-not $Computer)
         {
-            $Computer = foreach ($vmName in $ComputerName)
+            $Computer = foreach ($vmName in $VmName)
             {
                 Get-Vm -ComputerName $vmName
             }

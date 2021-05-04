@@ -1,13 +1,29 @@
-﻿function Get-Vm
+﻿<#
+.SYNOPSIS
+    List all VMs
+.DESCRIPTION
+    List all VMs
+.PARAMETER WhatIf
+    Indicates that action should be simulated
+.PARAMETER Confirm
+    Indicates that a confirmation is requested
+.EXAMPLE
+    Get-Vm -All
+
+    List all VMs. Can also use Get-Vm without any parameters
+#>
+function Get-Vm
 {
     [OutputType([PoshLibVirt.VirtualMachine])]
     [CmdletBinding(DefaultParameterSetName = 'List')]
     param
     (
+        # VM names to retrieve, supports Wildcards
         [Parameter(ParameterSetName = 'List')]
         [string[]]
-        $ComputerName = '*',
+        $VmName = '*',
 
+        # Indicates that all VMs should be retrieved
         [Parameter(ParameterSetName = 'All')]
         [switch]
         $All
@@ -15,7 +31,7 @@
 
     [string[]] $allVm = virsh list --name --all | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | Foreach-Object { $_.Trim() }
     [string[]] $runningVm = virsh list --name | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | Foreach-Object { $_.Trim() }
-    foreach ($name in $ComputerName)
+    foreach ($name in $VmName)
     {
         $vm = if ($All.IsPresent) { $allVm } else { $allVm | Where-Object { $_ -like $name } }
         $vmObject = [PoshLibVirt.VirtualMachine]::new()

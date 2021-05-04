@@ -5,7 +5,7 @@
     (
         [Parameter(Mandatory, ParameterSetName = 'Name', ValueFromPipeline, ValueFromPipelineByPropertyName)]
         [string[]]
-        $ComputerName,
+        $VmName,
 
         [Parameter(Mandatory, ParameterSetName = 'Object', ValueFromPipeline)]
         [PoshLibVirt.VirtualMachine[]]
@@ -16,7 +16,7 @@
     {
         if (-not $Computer)
         {
-            $Computer = foreach ($name in $ComputerName)
+            $Computer = foreach ($name in $VmName)
             {
                 Get-Vm -ComputerName $name
             }

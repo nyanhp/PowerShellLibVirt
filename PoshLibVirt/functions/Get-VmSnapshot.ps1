@@ -1,17 +1,34 @@
-﻿function Get-VmSnapshot
+﻿<#
+.SYNOPSIS
+    List all snapshots of a VM
+.DESCRIPTION
+    List all snapshots of a VM
+.PARAMETER WhatIf
+    Indicates that action should be simulated
+.PARAMETER Confirm
+    Indicates that a confirmation is requested
+.EXAMPLE
+    Get-VM | Get-VmSnapshot -Name BeforeDestruction
+
+    List all snapshots called BeforeDestruction of all VMs
+#>
+function Get-VmSnapshot
 {
     [OutputType([PoshLibVirt.Snapshot])]
     [CmdletBinding(DefaultParameterSetName='Computer')]
     param
     (
+        # Name of the VM, supports wildcards
         [Parameter(Mandatory, ParameterSetName = 'Name', ValueFromPipeline, ValueFromPipelineByPropertyName)]
         [string[]]
-        $ComputerName,
+        $VmName,
 
+        # Piped VM object
         [Parameter(Mandatory, ParameterSetName = 'Object', ValueFromPipeline)]
         [PoshLibVirt.VirtualMachine[]]
         $Computer,
 
+        # Snapshot name
         [Parameter(ParameterSetName = 'Name')]
         [Parameter(ParameterSetName = 'Object')]
         [string]
@@ -22,7 +39,7 @@
     {
         if (-not $Computer)
         {
-            $Computer = foreach ($vmName in $ComputerName)
+            $Computer = foreach ($vmName in $VmName)
             {
                 Get-Vm -ComputerName $vmName
             }

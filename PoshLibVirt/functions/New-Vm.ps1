@@ -5,7 +5,7 @@
     (
         [Parameter(Mandatory)]
         [string]
-        $ComputerName,
+        $VmName,
 
         [string]
         $Description,
@@ -89,7 +89,7 @@
     )
 
     $commandLine = @(
-        "--name=$ComputerName"
+        "--name=$VmName"
         if (-not [string]::IsNullOrWhiteSpace($Description)) { "--description=`"$Description`"" }
         "--ram=$($Memory/1MB)"
         if ($CpuSet.Count -gt 0) { "--cpuset=$($CpuSet -join ',')" }
@@ -156,7 +156,7 @@
         # Do things
     }
 
-    if (-not $PSCmdlet.ShouldProcess($ComputerName, (Get-PSFLocalizedString -Module PoshLibVirt -Name Verbose.CreateVm)))
+    if (-not $PSCmdlet.ShouldProcess($VmName, (Get-PSFLocalizedString -Module PoshLibVirt -Name Verbose.CreateVm)))
     {
         Write-PSFMessage -Message "virt-install $($commandLine -join ' ')"
     }
@@ -164,6 +164,6 @@
     $installProcess = Start-Process -FilePath 'virt-install' -ArgumentList $commandLine -Wait -PassThru
     if ($installProcess.ExitCode -ne 0)
     {
-        Write-PSFMessage -String Error.VMDeploymentFailed -StringValues $ComputerName
+        Write-PSFMessage -String Error.VMDeploymentFailed -StringValues $VmName
     }
 }

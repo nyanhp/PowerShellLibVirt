@@ -1,19 +1,36 @@
-﻿function New-NetworkBridge
+﻿<#
+.SYNOPSIS
+    Create new network bridge
+.DESCRIPTION
+    Create new network bridge
+.PARAMETER WhatIf
+    Indicates that action should be simulated
+.PARAMETER Confirm
+    Indicates that a confirmation is requested
+.EXAMPLE
+    New-NetworkBridge -Name br01 -IpAddress 192.168.2.0/24 -AdapterName eth0,eth1
+
+    Bridge eth0 and eth1 to a bridge device br01
+#>
+function New-NetworkBridge
 {
     [CmdletBinding()]
     param
     (
+        # Name of new bridge
         [Parameter(Mandatory)]
         [string]
         $Name,
 
-        # ip/mask
+        # IP address and mask combination, e.g. 192.168.2.123/24
         [string]
         $IpAddress,
 
+        # List of adapters to add to bridge
         [string[]]
         $AdapterName,
 
+        # Indicates that the bridge should use STP
         [switch]
         $UseSpanningTreeProtocol
     )

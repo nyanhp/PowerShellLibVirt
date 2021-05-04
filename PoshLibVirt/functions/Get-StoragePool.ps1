@@ -1,10 +1,25 @@
-﻿function Get-StoragePool
+﻿<#
+.SYNOPSIS
+    List storage pools
+.DESCRIPTION
+    List storage pools
+.PARAMETER WhatIf
+    Indicates that action should be simulated
+.PARAMETER Confirm
+    Indicates that a confirmation is requested
+.EXAMPLE
+    Get-StoragePool -Name PoolNoodle
+
+    View details of the storage pool PoolNoodle
+#>
+function Get-StoragePool
 {
 
     [OutputType([PoshLibVirt.StoragePool])]
     [CmdletBinding()]
     param
     (
+        # Name of the storage pool. Supports wildcards
         [string[]]
         $Name = '*'
     )

@@ -1,39 +1,63 @@
-﻿function Checkpoint-Vm
+﻿<#
+.SYNOPSIS
+    Create a VM snapshot
+.DESCRIPTION
+    Create a VM snapshot
+.EXAMPLE
+    Get-Vm | Checkpoint-Vm
+
+    Create snapshots of all running VMs
+.PARAMETER WhatIf
+    Indicates that action should be simulated
+.PARAMETER Confirm
+    Indicates that a confirmation is requested
+#>
+function Checkpoint-Vm
 {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
     param
     (
+        # The hosts to create a snapshot of
         [Parameter(Mandatory, ParameterSetName = 'Name', ValueFromPipeline, ValueFromPipelineByPropertyName)]
         [string[]]
-        $ComputerName,
+        $VmName,
 
+        # The VirtualMachine object to create a snapshot of
         [Parameter(Mandatory, ParameterSetName = 'Object', ValueFromPipeline)]
         [PoshLibVirt.VirtualMachine[]]
         $Computer,
 
+        # The snapshot name
         [Parameter(Mandatory, ParameterSetName = 'Name')]
         [Parameter(Mandatory, ParameterSetName = 'Object')]
         [string]
         $Name,
 
+        # The snapshot description
         [string]
         $Description,
 
+        # Indicates that metadata should not be included
         [switch]
         $NoMetaData,
 
+        # Indicates that the VM should be stopped
         [switch]
         $StopVm,
 
+        # Indicates that only a storage snapshot is created
         [switch]
         $DiskOnly,
 
+        # Indicates something
         [switch]
         $ReuseExternal,
 
+        # Indicates something
         [switch]
         $Atomic,
 
+        # Indicates that snapshot is taken from a running system
         [switch]
         $Live
     )
@@ -42,7 +66,7 @@
     {
         if (-not $Computer)
         {
-            $Computer = foreach ($vmName in $ComputerName)
+            $Computer = foreach ($vmName in $VmName)
             {
                 Get-Vm -ComputerName $vmName
             }

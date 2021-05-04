@@ -1,9 +1,24 @@
-﻿function Get-NetworkBridge
+﻿<#
+.SYNOPSIS
+    List the network bridge configuration
+.DESCRIPTION
+    List the network bridge configuration
+.EXAMPLE
+    Get-NetworkBridge
+
+    List all bridges
+.PARAMETER WhatIf
+    Indicates that action should be simulated
+.PARAMETER Confirm
+    Indicates that a confirmation is requested
+#>
+function Get-NetworkBridge
 {
     [OutputType([PoshLibVirt.NetworkBridge[]])]
     [CmdletBinding()]
     param
     (
+        # Name of the bridge. Supports wilcards
         [string]
         $Name = '*'
     )

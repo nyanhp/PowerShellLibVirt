@@ -1,17 +1,34 @@
-﻿function Get-StorageVolume
+﻿<#
+.SYNOPSIS
+    Get information about storage volumes
+.DESCRIPTION
+    Get information about storage volumes in a storage pool
+.PARAMETER WhatIf
+    Indicates that action should be simulated
+.PARAMETER Confirm
+    Indicates that a confirmation is requested
+.EXAMPLE
+    Get-StoragePool *Noodle* | Get-StorageVolume
+
+    List all volumes in all pools with a name like Noodle
+#>
+function Get-StorageVolume
 {
     [OutputType([PoshLibVirt.StorageVolume])]
     [CmdletBinding(DefaultParameterSetName = 'Pool')]
     param
     (
+        # Name of the storage pool
         [Parameter(Mandatory, ValueFromPipeline, ParameterSetName='PoolName')]
         [string]
         $PoolName,
 
+        # Piped storage pool object
         [Parameter(Mandatory, ValueFromPipeline, ParameterSetName='Pool')]
         [PoshLibVirt.StoragePool]
         $Pool,
 
+        # Name of the volume. Supports wildcards
         [string[]]
         $Name = '*'
     )

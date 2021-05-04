@@ -1,9 +1,24 @@
-﻿function Get-VirtualNetwork
+﻿<#
+.SYNOPSIS
+    List virtual network information
+.DESCRIPTION
+    List virtual network information
+.PARAMETER WhatIf
+    Indicates that action should be simulated
+.PARAMETER Confirm
+    Indicates that a confirmation is requested
+.EXAMPLE
+    Get-VirtualNetwork
+
+    List all virtual networks
+#>
+function Get-VirtualNetwork
 {
     [OutputType([PoshLibVirt.NetworkConfiguration])]
     [CmdletBinding()]
     param
     (
+        # Network name, supports wildcards
         [string[]]
         $Name = '*'
     )
