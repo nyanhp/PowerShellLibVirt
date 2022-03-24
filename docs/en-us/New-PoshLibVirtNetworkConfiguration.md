@@ -5,23 +5,16 @@ online version:
 schema: 2.0.0
 ---
 
-# Remove-Vm
+# New-PoshLibVirtNetworkConfiguration
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
-### Name
 ```
-Remove-Vm -VmName <String[]> [-Storage] [-WipeStorage] [-RemoveStorageVolumeSnapshot] [-WhatIf] [-Confirm]
- [<CommonParameters>]
-```
-
-### Object
-```
-Remove-Vm -Computer <VirtualMachine[]> [-Storage] [-WipeStorage] [-RemoveStorageVolumeSnapshot] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+New-PoshLibVirtNetworkConfiguration [-Name] <String> [[-MtuSizeByte] <UInt16>] [[-BridgeName] <String>]
+ [[-ForwardingConfiguration] <NetworkForwarding>] [[-IpAddresses] <IpEntry[]>]
+ [[-InboundQoS] <NetworkServiceQuality>] [[-OutboundQoS] <NetworkServiceQuality>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,116 +22,113 @@ Remove-Vm -Computer <VirtualMachine[]> [-Storage] [-WipeStorage] [-RemoveStorage
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+New-PoshLibVirtNetworkConfiguration -Name eth0 -BridgeName virbr0 -IpAddress @(@{IpAddress = '1.2.3.4'; NetworkMask = '255.255.255.0'})
+```
 
 ## PARAMETERS
 
-### -Computer
-{{ Fill Computer Description }}
+### -Name
+{{ Fill Name Description }}
 
 ```yaml
-Type: VirtualMachine[]
-Parameter Sets: Object
+Type: String
+Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -RemoveStorageVolumeSnapshot
-{{ Fill RemoveStorageVolumeSnapshot Description }}
+### -MtuSizeByte
+{{ Fill MtuSizeByte Description }}
 
 ```yaml
-Type: SwitchParameter
+Type: UInt16
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 2
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -BridgeName
+{{ Fill BridgeName Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Storage
-{{ Fill Storage Description }}
+### -ForwardingConfiguration
+{{ Fill ForwardingConfiguration Description }}
 
 ```yaml
-Type: SwitchParameter
+Type: NetworkForwarding
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 4
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -VmName
-{{ Fill VmName Description }}
+### -IpAddresses
+{{ Fill IpAddresses Description }}
 
 ```yaml
-Type: String[]
-Parameter Sets: Name
+Type: IpEntry[]
+Parameter Sets: (All)
 Aliases:
 
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
 Required: False
-Position: Named
+Position: 5
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -WipeStorage
-{{ Fill WipeStorage Description }}
+### -InboundQoS
+{{ Fill InboundQoS Description }}
 
 ```yaml
-Type: SwitchParameter
+Type: NetworkServiceQuality
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 6
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -OutboundQoS
+{{ Fill OutboundQoS Description }}
+
+```yaml
+Type: NetworkServiceQuality
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 7
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -149,11 +139,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### System.String[]
-### PoshLibVirt.VirtualMachine[]
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS

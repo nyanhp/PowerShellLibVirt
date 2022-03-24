@@ -14,7 +14,7 @@ schema: 2.0.0
 
 ### Name
 ```
-Restart-Vm -ComputerName <String[]> [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
+Restart-Vm -VmName <String[]> [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Object
@@ -51,21 +51,6 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -ComputerName
-{{ Fill ComputerName Description }}
-
-```yaml
-Type: String[]
-Parameter Sets: Name
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
 ### -Confirm
 Prompts you for confirmation before running the cmdlet.
 
@@ -93,6 +78,21 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -VmName
+{{ Fill VmName Description }}
+
+```yaml
+Type: String[]
+Parameter Sets: Name
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
