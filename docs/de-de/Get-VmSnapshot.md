@@ -19,7 +19,7 @@ Get-VmSnapshot [<CommonParameters>]
 
 ### Name
 ```
-Get-VmSnapshot -ComputerName <String[]> [-Name <String>] [<CommonParameters>]
+Get-VmSnapshot -VmName <String[]> [-Name <String>] [<CommonParameters>]
 ```
 
 ### Object
@@ -41,6 +41,21 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
+### -VmName
+Name of the VM, supports wildcards
+
+```yaml
+Type: String[]
+Parameter Sets: Name
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
 ### -Computer
 {{ Fill Computer Description }}
 
@@ -53,21 +68,6 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -ComputerName
-{{ Fill ComputerName Description }}
-
-```yaml
-Type: String[]
-Parameter Sets: Name
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 

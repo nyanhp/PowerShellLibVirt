@@ -14,32 +14,32 @@ schema: 2.0.0
 
 ### fv
 ```
-New-Vm -ComputerName <String> [-Description <String>] -Memory <UInt64> -CpuCount <UInt16>
- [-MaxCpuCount <UInt16>] [-Sockets <UInt16>] [-Cores <UInt16>] [-Threads <UInt16>] [-Cpu <CpuConfiguration>]
- [-CpuSet <UInt16[]>] [-StorageConfiguration <DiskConfiguration[]>] [-OsType <String>] [-OsVariant <String>]
+New-Vm -VmName <String> [-Description <String>] -Memory <UInt64> -CpuCount <UInt16> [-MaxCpuCount <UInt16>]
+ [-Sockets <UInt16>] [-Cores <UInt16>] [-Threads <UInt16>] [-Cpu <CpuConfiguration>] [-CpuSet <UInt16[]>]
+ [-StorageConfiguration <DiskConfiguration[]>] [-OsType <String>] [-OsVariant <String>]
  [-BootConfiguration <BootConfiguration>] [-CdRom <String>] [-InstallationSource <String>] [-PxeBoot] [-Import]
- [-LiveCd] [-NetworkConfiguration <NetworkConfiguration[]>] [-FullVirtualization] [-HypervisorType <String>]
- [-NoApic] [-NoAcpi] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-LiveCd] [-NetworkAdapter <NetworkAdapter[]>] [-FullVirtualization] [-HypervisorType <String>] [-NoApic]
+ [-NoAcpi] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### pv
 ```
-New-Vm -ComputerName <String> [-Description <String>] -Memory <UInt64> -CpuCount <UInt16>
- [-MaxCpuCount <UInt16>] [-Sockets <UInt16>] [-Cores <UInt16>] [-Threads <UInt16>] [-Cpu <CpuConfiguration>]
- [-CpuSet <UInt16[]>] [-StorageConfiguration <DiskConfiguration[]>] [-OsType <String>] [-OsVariant <String>]
+New-Vm -VmName <String> [-Description <String>] -Memory <UInt64> -CpuCount <UInt16> [-MaxCpuCount <UInt16>]
+ [-Sockets <UInt16>] [-Cores <UInt16>] [-Threads <UInt16>] [-Cpu <CpuConfiguration>] [-CpuSet <UInt16[]>]
+ [-StorageConfiguration <DiskConfiguration[]>] [-OsType <String>] [-OsVariant <String>]
  [-BootConfiguration <BootConfiguration>] [-CdRom <String>] [-InstallationSource <String>] [-PxeBoot] [-Import]
- [-LiveCd] [-NetworkConfiguration <NetworkConfiguration[]>] [-ParaVirtualization] [-HypervisorType <String>]
- [-NoApic] [-NoAcpi] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-LiveCd] [-NetworkAdapter <NetworkAdapter[]>] [-ParaVirtualization] [-HypervisorType <String>] [-NoApic]
+ [-NoAcpi] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### container
 ```
-New-Vm -ComputerName <String> [-Description <String>] -Memory <UInt64> -CpuCount <UInt16>
- [-MaxCpuCount <UInt16>] [-Sockets <UInt16>] [-Cores <UInt16>] [-Threads <UInt16>] [-Cpu <CpuConfiguration>]
- [-CpuSet <UInt16[]>] [-StorageConfiguration <DiskConfiguration[]>] [-OsType <String>] [-OsVariant <String>]
+New-Vm -VmName <String> [-Description <String>] -Memory <UInt64> -CpuCount <UInt16> [-MaxCpuCount <UInt16>]
+ [-Sockets <UInt16>] [-Cores <UInt16>] [-Threads <UInt16>] [-Cpu <CpuConfiguration>] [-CpuSet <UInt16[]>]
+ [-StorageConfiguration <DiskConfiguration[]>] [-OsType <String>] [-OsVariant <String>]
  [-BootConfiguration <BootConfiguration>] [-CdRom <String>] [-InstallationSource <String>] [-PxeBoot] [-Import]
- [-LiveCd] [-NetworkConfiguration <NetworkConfiguration[]>] [-Container] [-HypervisorType <String>] [-NoApic]
- [-NoAcpi] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-LiveCd] [-NetworkAdapter <NetworkAdapter[]>] [-Container] [-HypervisorType <String>] [-NoApic] [-NoAcpi]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -80,21 +80,6 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ComputerName
-{{ Fill ComputerName Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -311,11 +296,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -NetworkConfiguration
-{{ Fill NetworkConfiguration Description }}
+### -NetworkAdapter
+{{ Fill NetworkAdapter Description }}
 
 ```yaml
-Type: NetworkConfiguration[]
+Type: NetworkAdapter[]
 Parameter Sets: (All)
 Aliases:
 
@@ -455,6 +440,21 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -VmName
+{{ Fill VmName Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False

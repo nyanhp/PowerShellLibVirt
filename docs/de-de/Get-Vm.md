@@ -14,7 +14,7 @@ schema: 2.0.0
 
 ### List (Default)
 ```
-Get-Vm [-ComputerName <String[]>] [<CommonParameters>]
+Get-Vm [-VmName <String[]>] [<CommonParameters>]
 ```
 
 ### All
@@ -36,27 +36,27 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
+### -VmName
+VM names to retrieve, supports Wildcards
+
+```yaml
+Type: String[]
+Parameter Sets: List
+Aliases:
+
+Required: False
+Position: Named
+Default value: *
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -All
 {{ Fill All Description }}
 
 ```yaml
 Type: SwitchParameter
 Parameter Sets: All
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ComputerName
-{{ Fill ComputerName Description }}
-
-```yaml
-Type: String[]
-Parameter Sets: List
 Aliases:
 
 Required: False

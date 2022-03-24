@@ -5,23 +5,56 @@ online version:
 schema: 2.0.0
 ---
 
-# Checkpoint-Vm
+# Restore-VmSnapshot
 
 ## SYNOPSIS
 {{ Fill in the Synopsis }}
 
 ## SYNTAX
 
-### Name
+### NameCurrent
 ```
-Checkpoint-Vm -VmName <String[]> -Name <String> [-Description <String>] [-NoMetaData] [-StopVm] [-DiskOnly]
- [-ReuseExternal] [-Atomic] [-Live] [-WhatIf] [-Confirm] [<CommonParameters>]
+Restore-VmSnapshot -VmName <String[]> [-Current] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-### Object
+### NameSuspend
 ```
-Checkpoint-Vm -Computer <VirtualMachine[]> -Name <String> [-Description <String>] [-NoMetaData] [-StopVm]
- [-DiskOnly] [-ReuseExternal] [-Atomic] [-Live] [-WhatIf] [-Confirm] [<CommonParameters>]
+Restore-VmSnapshot -VmName <String[]> -Name <String> [-Suspend] [-Force] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
+
+### NameStart
+```
+Restore-VmSnapshot -VmName <String[]> -Name <String> [-Start] [-Force] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
+
+### NameName
+```
+Restore-VmSnapshot -VmName <String[]> -Name <String> [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### ObjectCurrent
+```
+Restore-VmSnapshot -Computer <VirtualMachine[]> [-Current] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### ObjectSuspend
+```
+Restore-VmSnapshot -Computer <VirtualMachine[]> -Name <String> [-Suspend] [-Force] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
+
+### ObjectStart
+```
+Restore-VmSnapshot -Computer <VirtualMachine[]> -Name <String> [-Start] [-Force] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
+
+### ObjectName
+```
+Restore-VmSnapshot -Computer <VirtualMachine[]> -Name <String> [-Force] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -38,27 +71,12 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
-### -VmName
-The hosts to create a snapshot of
-
-```yaml
-Type: String[]
-Parameter Sets: Name
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
 ### -Computer
 {{ Fill Computer Description }}
 
 ```yaml
 Type: VirtualMachine[]
-Parameter Sets: Object
+Parameter Sets: ObjectCurrent, ObjectSuspend, ObjectStart, ObjectName
 Aliases:
 
 Required: True
@@ -68,12 +86,27 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -Name
-{{ Fill Name Description }}
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
 
 ```yaml
-Type: String
+Type: SwitchParameter
 Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Current
+{{ Fill Current Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: NameCurrent, ObjectCurrent
 Aliases:
 
 Required: True
@@ -83,11 +116,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Description
-The snapshot description
+### -Force
+{{ Fill Force Description }}
 
 ```yaml
-Type: String
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
@@ -98,93 +131,63 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -NoMetaData
-Indicates that metadata should not be included
+### -Name
+{{ Fill Name Description }}
 
 ```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
+Type: String
+Parameter Sets: NameSuspend, NameStart, NameName, ObjectSuspend, ObjectStart, ObjectName
 Aliases:
 
-Required: False
+Required: True
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -StopVm
-Indicates that the VM should be stopped
+### -Start
+{{ Fill Start Description }}
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
+Parameter Sets: NameStart, ObjectStart
 Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -DiskOnly
-Indicates that only a storage snapshot is created
+### -Suspend
+{{ Fill Suspend Description }}
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
+Parameter Sets: NameSuspend, ObjectSuspend
 Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ReuseExternal
-Indicates something
+### -VmName
+{{ Fill VmName Description }}
 
 ```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
+Type: String[]
+Parameter Sets: NameCurrent, NameSuspend, NameStart, NameName
 Aliases:
 
-Required: False
+Required: True
 Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Atomic
-Indicates something
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Live
-Indicates that snapshot is taken from a running system
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
@@ -196,21 +199,6 @@ The cmdlet is not run.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: wi
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
 
 Required: False
 Position: Named
