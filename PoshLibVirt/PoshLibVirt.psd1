@@ -66,6 +66,7 @@
 		'Remove-StorageVolume',
 		'Remove-VirtualNetwork',
 		'Remove-Vm',
+		'Remove-VmSnapshot',
 		'Resize-StorageVolume',
 		'Restart-Vm',
 		'Restore-VmSnapshot',

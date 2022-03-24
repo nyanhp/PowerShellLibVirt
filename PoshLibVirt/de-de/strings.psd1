@@ -9,6 +9,7 @@
 	'Error.VmNetworkNotFound'        = 'VM Netzwerk {0} onnte nicht gefunden werden.'
 	'Error.VmBridgeNotFound'         = 'VM Netzwerk-Bridge {0} onnte nicht gefunden werden.'
 	'Error.NetworkCreationFailed'    = 'Fehler bei der Erstellung von Netzwerk {0}. virsh Rückgabewert {1}'
+	'Error.NetworkDestructionFailed' = 'Fehler bei Entfernen des Netzwerks {0}. virsh Rückgabewert {1}'
 
 	'Warning.BridgeConnectionExists' = 'Bridge {0} Adapter {1} ist bereits verbunden.'
 

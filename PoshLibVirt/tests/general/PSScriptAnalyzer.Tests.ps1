@@ -12,13 +12,15 @@ if ($SkipTest) { return }
 $global:__pester_data.ScriptAnalyzer = New-Object System.Collections.ArrayList
 
 Describe 'Invoking PSScriptAnalyzer against commandbase' {
-	$commandFiles = Get-ChildItem -Path $CommandPath -Recurse | Where-Object Name -like "*.ps1"
+	$commandFiles = foreach ($path in $CommandPath) {
+        Get-ChildItem -Path $path -Recurse | Where-Object Name -like "*.ps1"
+    }
 	$scriptAnalyzerRules = Get-ScriptAnalyzerRule
 	
 	foreach ($file in $commandFiles)
 	{
 		Context "Analyzing $($file.BaseName)" {
-			$analysis = Invoke-ScriptAnalyzer -Path $file.FullName -ExcludeRule PSAvoidTrailingWhitespace, PSShouldProcess, PSUseShouldProcessForStateChangingFunctions
+			$analysis = Invoke-ScriptAnalyzer -Path $file.FullName -ExcludeRule PSAvoidTrailingWhitespace, PSShouldProcess
 			
 			forEach ($rule in $scriptAnalyzerRules)
 			{

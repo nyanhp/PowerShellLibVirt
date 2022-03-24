@@ -4,6 +4,7 @@ New-PoshLibVirtNetworkConfiguration -Name eth0 -BridgeName virbr0 -IpAddress @(@
 #>
 function New-PoshLibVirtNetworkConfiguration
 {
+    [OutputType([PoshLibVirt.NetworkConfiguration])]
     [CmdletBinding()]
     param
     (
