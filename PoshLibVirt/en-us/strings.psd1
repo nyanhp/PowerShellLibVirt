@@ -21,4 +21,5 @@
 	'Verbose.StartVm'                = 'Start VM'
 	'Verbose.StopVm'                 = 'Stop VM'
 	'Verbose.SaveVm'                 = 'Save (Suspend) VM'
+	'Verbose.Remove'                 = 'Remove VM'
 }
