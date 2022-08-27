@@ -14,6 +14,7 @@ namespace PoshLibVirt
         public ulong AllocatedBytes {get; set;}
         public ulong AvailableBytes {get; set;}
         public string TargetPath {get; set;}
+        public bool AutoStart {get; set;}
 
         public override string ToString()
         {

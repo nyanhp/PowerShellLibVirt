@@ -9,7 +9,7 @@
 	
 	$Include = "*",
 	
-	$Exclude = "Help*"
+	$Exclude = ""
 )
 
 Write-PSFMessage -Level Important -Message "Starting Tests"

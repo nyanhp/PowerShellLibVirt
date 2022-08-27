@@ -27,5 +27,5 @@ foreach ($module in $modules) {
 dotnet build "$PSScriptRoot\..\library\PoshLibVirt"
 foreach ($heeeeelp in (Get-ChildItem -Directory -Path "$PSScriptRoot\..\docs"))
 {
-    New-ExternalHelp -Path $heeeeelp.FullName -OutputPath "$PSScriptRoot\..\PoshLibVirt\$($heeeeelp.BaseName)"
+    New-ExternalHelp -Path $heeeeelp.FullName -OutputPath "$PSScriptRoot\..\PoshLibVirt\$($heeeeelp.BaseName)" -Force
 }

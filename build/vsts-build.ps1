@@ -12,10 +12,10 @@ param (
 	$Repository = 'PSGallery',
 	
 	[switch]
-	$LocalRepo,
+	$LocalRepo = $true,
 	
 	[switch]
-	$SkipPublish,
+	$SkipPublish = $true,
 	
 	[switch]
 	$AutoVersion
@@ -36,14 +36,14 @@ if (-not $WorkingDirectory) { $WorkingDirectory = Split-Path $PSScriptRoot }
 # Prepare publish folder
 Write-PSFMessage -Level Important -Message "Creating and populating publishing directory"
 $publishDir = New-Item -Path $WorkingDirectory -Name publish -ItemType Directory -Force
-Copy-Item -Path "$($WorkingDirectory)\PoshLibVirt" -Destination $publishDir.FullName -Recurse -Force
+Copy-Item -Path "$($WorkingDirectory)/PoshLibVirt" -Destination $publishDir.FullName -Recurse -Force
 
 #region Gather text data to compile
 $text = @()
 $processed = @()
 
 # Gather Stuff to run before
-foreach ($filePath in (& "$($PSScriptRoot)\..\PoshLibVirt\internal\scripts\preimport.ps1"))
+foreach ($filePath in (& "$($PSScriptRoot)/../PoshLibVirt/internal/scripts/preimport.ps1"))
 {
 	if ([string]::IsNullOrWhiteSpace($filePath)) { continue }
 	
@@ -55,15 +55,15 @@ foreach ($filePath in (& "$($PSScriptRoot)\..\PoshLibVirt\internal\scripts\preim
 }
 
 # Gather commands
-Get-ChildItem -Path "$($publishDir.FullName)\PoshLibVirt\internal\functions\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
+Get-ChildItem -Path "$($publishDir.FullName)/PoshLibVirt/internal/functions/" -Recurse -File -Filter "*.ps1" | ForEach-Object {
 	$text += [System.IO.File]::ReadAllText($_.FullName)
 }
-Get-ChildItem -Path "$($publishDir.FullName)\PoshLibVirt\functions\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
+Get-ChildItem -Path "$($publishDir.FullName)/PoshLibVirt/functions/" -Recurse -File -Filter "*.ps1" | ForEach-Object {
 	$text += [System.IO.File]::ReadAllText($_.FullName)
 }
 
 # Gather stuff to run afterwards
-foreach ($filePath in (& "$($PSScriptRoot)\..\PoshLibVirt\internal\scripts\postimport.ps1"))
+foreach ($filePath in (& "$($PSScriptRoot)/../PoshLibVirt/internal/scripts/postimport.ps1"))
 {
 	if ([string]::IsNullOrWhiteSpace($filePath)) { continue }
 	
@@ -76,10 +76,10 @@ foreach ($filePath in (& "$($PSScriptRoot)\..\PoshLibVirt\internal\scripts\posti
 #endregion Gather text data to compile
 
 #region Update the psm1 file
-$fileData = Get-Content -Path "$($publishDir.FullName)\PoshLibVirt\PoshLibVirt.psm1" -Raw
+$fileData = Get-Content -Path "$($publishDir.FullName)/PoshLibVirt/PoshLibVirt.psm1" -Raw
 $fileData = $fileData.Replace('"<was not compiled>"', '"<was compiled>"')
 $fileData = $fileData.Replace('"<compile code into here>"', ($text -join "`n`n"))
-[System.IO.File]::WriteAllText("$($publishDir.FullName)\PoshLibVirt\PoshLibVirt.psm1", $fileData, [System.Text.Encoding]::UTF8)
+[System.IO.File]::WriteAllText("$($publishDir.FullName)/PoshLibVirt/PoshLibVirt.psm1", $fileData, [System.Text.Encoding]::UTF8)
 #endregion Update the psm1 file
 
 #region Updating the Module Version
@@ -96,8 +96,8 @@ if ($AutoVersion)
 		Stop-PSFFunction -Message "Couldn't find PoshLibVirt on repository $($Repository)" -EnableException $true
 	}
 	$newBuildNumber = $remoteVersion.Build + 1
-	[version]$localVersion = (Import-PowerShellDataFile -Path "$($publishDir.FullName)\PoshLibVirt\PoshLibVirt.psd1").ModuleVersion
-	Update-ModuleManifest -Path "$($publishDir.FullName)\PoshLibVirt\PoshLibVirt.psd1" -ModuleVersion "$($localVersion.Major).$($localVersion.Minor).$($newBuildNumber)"
+	[version]$localVersion = (Import-PowerShellDataFile -Path "$($publishDir.FullName)/PoshLibVirt/PoshLibVirt.psd1").ModuleVersion
+	Update-ModuleManifest -Path "$($publishDir.FullName)/PoshLibVirt/PoshLibVirt.psd1" -ModuleVersion "$($localVersion.Major).$($localVersion.Minor).$($newBuildNumber)"
 }
 #endregion Updating the Module Version
 
@@ -109,12 +109,12 @@ if ($LocalRepo)
 	Write-PSFMessage -Level Important -Message "Creating Nuget Package for module: PSFramework"
 	New-PSMDModuleNugetPackage -ModulePath (Get-Module -Name PSFramework).ModuleBase -PackagePath .
 	Write-PSFMessage -Level Important -Message "Creating Nuget Package for module: PoshLibVirt"
-	New-PSMDModuleNugetPackage -ModulePath "$($publishDir.FullName)\PoshLibVirt" -PackagePath .
+	New-PSMDModuleNugetPackage -ModulePath "$($publishDir.FullName)/PoshLibVirt" -PackagePath .
 }
 else
 {
 	# Publish to Gallery
 	Write-PSFMessage -Level Important -Message "Publishing the PoshLibVirt module to $($Repository)"
-	Publish-Module -Path "$($publishDir.FullName)\PoshLibVirt" -NuGetApiKey $ApiKey -Force -Repository $Repository
+	Publish-Module -Path "$($publishDir.FullName)/PoshLibVirt" -NuGetApiKey $ApiKey -Force -Repository $Repository
 }
 #endregion Publish

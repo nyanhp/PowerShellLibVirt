@@ -24,5 +24,5 @@ Register-PSFTeppScriptblock -Name PoshLibVirt.BridgeName -ScriptBlock {
 }
 
 Register-PSFTeppScriptblock -Name PoshLibVirt.Vm -ScriptBlock {
-    (Get-Vm -All).Name
+    (Get-PLVVm -All).Name
 }
