@@ -18,12 +18,12 @@ namespace PoshLibVirt
 
         public override string ToString()
         {
-            var str = string.Join(',', BootDevices);
+            var str = string.Join(",", BootDevices);
             if (!string.IsNullOrWhiteSpace(Kernel)) { str += $",kernel=${Kernel}"; }
             if (!string.IsNullOrWhiteSpace(InitialRamDisk)) { str += $",initrd=${InitialRamDisk}"; }
             if (!string.IsNullOrWhiteSpace(KernelArguments)) { str += $",kernel_args=\"${KernelArguments}\""; }
             if (BiosMenuEnabled) { str += ",menu=on"; }
-            if (str.StartsWith(',')) { str.Remove(0, 1); }
+            if (str.StartsWith(",")) { str.Remove(0, 1); }
 
             return str;
         }

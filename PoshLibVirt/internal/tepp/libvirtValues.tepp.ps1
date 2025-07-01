@@ -2,10 +2,6 @@
     osinfo-query os --fields=short-id | Select-Object -Skip 1 | % { $_.Trim() }
 }
 
-Register-PSFTeppScriptblock -Name PoshLibVirt.OsType -ScriptBlock {
-    'linux', 'windows'
-}
-
 Register-PSFTeppScriptblock -Name PoshLibVirt.HyperVisorType -ScriptBlock {
     $caps = [xml](virsh capabilities)
     $caps.capabilities.guest.Where( { $_.arch.wordsize -eq 64 }).arch.domain.type

@@ -20,9 +20,9 @@
 
             $xml = New-TemporaryFile
             $networkConfig.ToXml().Save($xml.FullName)
-            $creation = Start-Process -Wait -PassThru -FilePath virsh -ArgumentList "net-create $($xml.FullName)"
+            $null = sudo virsh net-create $xml.FullName
 
-            if ($creation.ExitCode -ne 0)
+            if ($LASTEXITCODE -ne 0)
             {
                 Write-PSFMessage -String 'Error.NetworkCreationFailed' -StringValues $networkConfig.Name, $creation.ExitCode
             }

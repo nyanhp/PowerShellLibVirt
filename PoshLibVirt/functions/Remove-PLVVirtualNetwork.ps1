@@ -14,9 +14,9 @@
         {
             if (-not (Get-PLVVirtualNetwork -Name $net)) { continue }
             
-            $destruction = Start-Process -FilePath virsh -ArgumentList "net-destroy $net" -Wait -PassThru
+            sudo virsh net-destroy $net
 
-            if ($destruction.ExitCode -ne 0)
+            if ($LASTEXITCODE -ne 0)
             {
                 Write-PSFMessage -String Error.NetworkDestructionFailed -StringValues $net, $destruction.ExitCode
             }

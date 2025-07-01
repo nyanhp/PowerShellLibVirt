@@ -59,7 +59,7 @@
         {
             $Computer = foreach ($vmName in $VmName)
             {
-                Get-PLVVm -ComputerName $vmName
+                Get-PLVVm -VmName $vmName
             }
         }
 
@@ -80,7 +80,7 @@
                 if ($FOrce.IsPresent) { '--force' }
             )
 
-            Start-Process -FilePath virsh -ArgumentList $cmdLine -Wait
+            sudo virsh @cmdLine
         }
     }
 }

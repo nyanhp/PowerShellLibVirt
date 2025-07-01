@@ -23,7 +23,7 @@ function Get-PLVVirtualNetwork
         $Name = '*'
     )
 
-    foreach ($network in (virsh net-list --all --name))
+    foreach ($network in (sudo virsh net-list --all --name))
     {
         if ([string]::IsNullOrWhiteSpace($network)) { continue }
         $network = $network.Trim()
@@ -31,7 +31,7 @@ function Get-PLVVirtualNetwork
         {
             if ($network -notlike $networkName) { continue }
 
-            [xml] $networkInfo = virsh net-dumpxml $network
+            [xml] $networkInfo = sudo virsh net-dumpxml $network
             $networkObject = [PoshLibVirt.NetworkConfiguration]::new()
             $networkObject.Name = $networkInfo.network.name
             $networkObject.Uuid = $networkInfo.network.uuid

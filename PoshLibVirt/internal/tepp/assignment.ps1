@@ -1,5 +1,4 @@
-﻿Register-PSFTeppArgumentCompleter -Command New-PLVVm -Parameter OsType -Name PoshLibVirt.OsType
-Register-PSFTeppArgumentCompleter -Command New-PLVVm -Parameter OsVariant -Name PoshLibVirt.OsVariant
+﻿Register-PSFTeppArgumentCompleter -Command New-PLVVm -Parameter OsVariant -Name PoshLibVirt.OsVariant
 Register-PSFTeppArgumentCompleter -Command New-PLVVm -Parameter HypervisorType -Name PoshLibVirt.HyperVisorType
 Register-PSFTeppArgumentCompleter -Command New-PLVCpuConfiguration -Parameter Model -Name PoshLibVirt.CpuModel
 Register-PSFTeppArgumentCompleter -Command New-PLVNetworkBridge -Parameter AdapterName -Name PoshLibVirt.AdapterName

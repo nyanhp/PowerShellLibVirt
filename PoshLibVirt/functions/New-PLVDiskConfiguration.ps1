@@ -15,7 +15,7 @@
 
         [ValidateSet('cdrom', 'disk', 'floppy')]
         [string]
-        $Device,
+        $Device = 'disk',
 
         [uint64]
         $Size,
@@ -33,7 +33,7 @@
 
         [ValidateSet('raw', 'bochs', 'cloop', 'cow', 'dmg', 'iso', 'qcow', 'qcow2', 'qed', 'vmdk', 'vpc')]
         [string]
-        $Format
+        $Format = 'qcow2'
     )
 
     $classParameters = Clear-PSBoundParameters -ParameterDictionary $PSBoundParameters

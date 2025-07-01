@@ -33,13 +33,13 @@
         {
             $Computer = foreach ($vmName in $VmName)
             {
-                Get-PLVVm -ComputerName $vmName
+                Get-PLVVm -VmName $vmName
             }
         }
 
         foreach ($machine in $Computer)
         {
-            [string[]]$snappies = virsh snapshot-list --name --domain $machine.Name 2>$null | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | ForEach-Object { $_.Trim() }
+            [string[]]$snappies = sudo virsh snapshot-list --name --domain $machine.Name 2>$null | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | ForEach-Object { $_.Trim() }
             foreach ($snap in ($snappies -like $Name))
             {
                 if (-not $PSCmdlet.ShouldProcess($machine.Name, (Get-PSFLocalizedString -Module PoshLibVirt -Name Verbose.Remove)))
@@ -54,7 +54,7 @@
                     if ($Current.IsPresent) { '--current' }
                 )
     
-                Start-Process -FilePath virsh -ArgumentList $cmdLine -Wait
+                sudo virsh -ArgumentList @cmdLine
             }
         }
     }

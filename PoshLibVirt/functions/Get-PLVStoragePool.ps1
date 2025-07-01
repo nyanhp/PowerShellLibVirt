@@ -24,7 +24,7 @@ function Get-PLVStoragePool
         $Name = '*'
     )
 
-    foreach ($pool in (virsh pool-list --all --name))
+    foreach ($pool in (sudo virsh pool-list --all --name))
     {
         if ([string]::IsNullOrWhiteSpace($pool)) { continue }
         $pool = $pool.Trim()
@@ -32,7 +32,7 @@ function Get-PLVStoragePool
         {
             if ($pool -notlike $poolName) { continue }
 
-            [xml] $poolInfo = virsh pool-dumpxml $pool
+            [xml] $poolInfo = sudo virsh pool-dumpxml $pool
             $poolObject = [PoshLibVirt.StoragePool]::new()
             $poolObject.Type = $poolInfo.pool.type
             $poolObject.Capacity = $poolInfo.pool.capacity.InnerText

@@ -36,13 +36,13 @@ Param (
 	$SkipTest,
 	
 	[string[]]
-	$CommandPath = @("$global:testroot\..\functions", "$global:testroot\..\internal\functions"),
+	$CommandPath = @("$global:testroot/../functions", "$global:testroot/../internal/functions"),
 	
 	[string]
 	$ModuleName = "PoshLibVirt",
 	
 	[string]
-	$ExceptionsFile = "$global:testroot\general\Help.Exceptions.ps1"
+	$ExceptionsFile = "$global:testroot/general/Help.Exceptions.ps1"
 )
 if ($SkipTest) { return }
 . $ExceptionsFile

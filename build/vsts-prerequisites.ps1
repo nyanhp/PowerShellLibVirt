@@ -6,7 +6,7 @@
 $modules = @("Pester", "PSFramework", "PSModuleDevelopment", "PSScriptAnalyzer", "PlatyPs")
 
 # Automatically add missing dependencies
-$data = Import-PowerShellDataFile -Path "$PSScriptRoot\..\PoshLibVirt\PoshLibVirt.psd1"
+$data = Import-PowerShellDataFile -Path "$PSScriptRoot/../PoshLibVirt/PoshLibVirt.psd1"
 foreach ($dependency in $data.RequiredModules) {
     if ($dependency -is [string]) {
         if ($modules -contains $dependency) { continue }
@@ -24,8 +24,8 @@ foreach ($module in $modules) {
     Import-Module $module -Force -PassThru
 }
 
-dotnet build "$PSScriptRoot\..\library\PoshLibVirt"
-foreach ($heeeeelp in (Get-ChildItem -Directory -Path "$PSScriptRoot\..\docs"))
+dotnet build "$PSScriptRoot/../library/PoshLibVirt"
+foreach ($heeeeelp in (Get-ChildItem -Directory -Path "$PSScriptRoot/../docs"))
 {
-    New-ExternalHelp -Path $heeeeelp.FullName -OutputPath "$PSScriptRoot\..\PoshLibVirt\$($heeeeelp.BaseName)" -Force
+    New-ExternalHelp -Path $heeeeelp.FullName -OutputPath "$PSScriptRoot/../PoshLibVirt/$($heeeeelp.BaseName)" -Force
 }

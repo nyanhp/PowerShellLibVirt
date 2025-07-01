@@ -1,5 +1,4 @@
-﻿function New-PLVVm
-{
+﻿function New-PLVVm {
     [CmdletBinding(SupportsShouldProcess)]
     param
     (
@@ -38,9 +37,6 @@
 
         [PoshLibVirt.DiskConfiguration[]]
         $StorageConfiguration,
-
-        [string]
-        $OsType,
 
         [string]
         $OsVariant,
@@ -93,7 +89,7 @@
         if (-not [string]::IsNullOrWhiteSpace($Description)) { "--description=`"$Description`"" }
         "--ram=$($Memory/1MB)"
         if ($CpuSet.Count -gt 0) { "--cpuset=$($CpuSet -join ',')" }
-        if (-not [string]::IsNullOrWhiteSpace($CdRom)) { "--cdrom==$CdRom" }
+        if (-not [string]::IsNullOrWhiteSpace($CdRom)) { "--cdrom=$CdRom" }
         if (-not [string]::IsNullOrWhiteSpace($InstallationSource)) { "--location=$InstallationSource" }
         if ($PxeBoot.IsPresent) { "--pxe" }
         if ($Import.IsPresent) { "--import" }
@@ -103,7 +99,6 @@
         if ($FullVirtualization.IsPresent) { "--hvm" }
         if ($ParaVirtualization.IsPresent) { "--paravirt" }
         if ($Container.IsPresent) { "--container" }
-        if (-not [string]::IsNullOrWhiteSpace($OsType)) { "--os-type=$OsType" }
         if (-not [string]::IsNullOrWhiteSpace($OsVariant)) { "--os-variant=$OsVariant" }
         if (-not [string]::IsNullOrWhiteSpace($HypervisorType)) { "--virt-type=$HypervisorType" }
     )
@@ -115,55 +110,46 @@
     if ($Threads -gt 0) { $cpuString += ",threads=$Threads" }
     $commandLine += $cpuString
 
-    foreach ($disk in $StorageConfiguration)
-    {
-        $commandLine += $disk.ToString()
+    foreach ($disk in $StorageConfiguration) {
+        $commandLine += $disk.GetCommandLine()
     }
 
-    if ($StorageConfiguration.Count -eq 0)
-    {
+    if ($StorageConfiguration.Count -eq 0) {
         $commandLine += '--nodisks'
     }
 
-    if ($null -ne $Cpu)
-    {
-        $commandLine += $Cpu.ToString()
+    if ($null -ne $Cpu) {
+        $Cpu.GetCommandLine()
     }
 
-    foreach ($nic in $NetworkAdapter)
-    {
-        if ($nic.NetworkName -and -not (Get-PLVVirtualNetwork -Name $nic.NetworkName))
-        {
+    foreach ($nic in $NetworkAdapter) {
+        if ($nic.NetworkName -and -not (Get-PLVVirtualNetwork -Name $nic.NetworkName)) {
             Write-PSFMessage -String 'Error.VmNetworkNotFound'  -StringValues $nic.NetworkName -Level Error
             return
         }
 
-        if ($nic.BridgeName -and -not (Get-PLVNetworkBridge -Name $nic.BridgeName))
-        {
+        if ($nic.BridgeName -and -not (Get-PLVNetworkBridge -Name $nic.BridgeName)) {
             Write-PSFMessage -String 'Error.VmBridgeNotFound'  -StringValues $nic.BridgeName -Level Error
             return
         }
-        $commandLine += $nic.ToString()
+        $commandLine += $nic.GetCommandLine()
     }
 
-    if ($NetworkAdapter.Count -eq 0)
-    {
+    if ($NetworkAdapter.Count -eq 0) {
         $commandLine += '--nonetworks'
     }
 
-    if ($BootConfiguration)
-    {
+    if ($BootConfiguration) {
         # Do things
     }
 
-    if (-not $PSCmdlet.ShouldProcess($VmName, (Get-PSFLocalizedString -Module PoshLibVirt -Name Verbose.CreateVm)))
-    {
-        Write-PSFMessage -Message "virt-install $($commandLine -join ' ')"
+    if (-not $PSCmdlet.ShouldProcess($VmName, (Get-PSFLocalizedString -Module PoshLibVirt -Name Verbose.CreateVm))) {
+        Write-PSFMessage -Message "sudo virt-install $($commandLine -join ' ')"
+        return
     }
 
-    $installProcess = Start-Process -FilePath 'virt-install' -ArgumentList $commandLine -Wait -PassThru
-    if ($installProcess.ExitCode -ne 0)
-    {
+    $null = sudo virt-install @commandLine
+    if ($LASTEXITCODE -ne 0) {
         Write-PSFMessage -String Error.VMDeploymentFailed -StringValues $VmName
     }
 }

@@ -20,21 +20,41 @@ namespace PoshLibVirt
             CacheMode = CacheMode.writethrough;
         }
 
+        public System.Collections.Generic.List<string> GetCommandLine()
+        {
+            var cmdLine = new System.Collections.Generic.List<string> { "--disk" };
+
+            var str = $"perms={Permission.ToString()}";
+            str += $",device={Device}";
+            str += $",cache={CacheMode}";
+            str += $",format={Format}";
+
+            if (!string.IsNullOrWhiteSpace(Path)) { str += $",path={Path}"; }
+            if (!string.IsNullOrWhiteSpace(StoragePoolName)) { str += $",pool={StoragePoolName}"; }
+            if (!string.IsNullOrWhiteSpace(Volume)) { str += $",vol={Volume}"; }
+            if (null != Size) { str += $",size={Size / (1024 * 1024 * 1024)}"; }
+            if (Sparse) { str += $",sparse={Sparse.ToString().ToLower()}"; }
+
+            cmdLine.Add(str);
+
+            return cmdLine;
+        }
+
         public override string ToString()
         {
             var str = "--disk ";
-            str += $"perms={Permission.ToString()},";
-            str += $"device={Device},";
-            str += $"cache={CacheMode},";
-            str += $"format={Format},";
+            str += $"perms={Permission.ToString()}";
+            str += $",device={Device}";
+            str += $",cache={CacheMode}";
+            str += $",format={Format}";
 
-            if (!string.IsNullOrWhiteSpace(Path)) { str += $"path={Path},"; }
-            if (!string.IsNullOrWhiteSpace(StoragePoolName)) { str += $"pool={StoragePoolName},"; }
-            if (!string.IsNullOrWhiteSpace(Volume)) { str += $"vol={Volume},"; }
-            if (null != Size) { str += $"size={Size / (1024 * 1024 * 1024)},"; }
-            if (Sparse) { str += $"sparse={Sparse.ToString().ToLower()},"; }
+            if (!string.IsNullOrWhiteSpace(Path)) { str += $",path={Path}"; }
+            if (!string.IsNullOrWhiteSpace(StoragePoolName)) { str += $",pool={StoragePoolName}"; }
+            if (!string.IsNullOrWhiteSpace(Volume)) { str += $",vol={Volume}"; }
+            if (null != Size) { str += $",size={Size / (1024 * 1024 * 1024)}"; }
+            if (Sparse) { str += $",sparse={Sparse.ToString().ToLower()}"; }
 
-            return str.Substring(0, str.Length - 1);
+            return str;
         }
     }
 }

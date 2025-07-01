@@ -22,7 +22,7 @@
         {
             $Computer = foreach ($name in $VmName)
             {
-                Get-PLVVm -ComputerName $name
+                Get-PLVVm -VmName $name
             }
         }
 
@@ -35,11 +35,11 @@
 
             if ($Force.IsPresent)
             {
-                virsh reset $machine.Uuid
+                sudo virsh reset $machine.Uuid
                 continue
             }
 
-            virsh reboot $machine.Uuid
+            sudo virsh reboot $machine.Uuid
         }
     }
 }

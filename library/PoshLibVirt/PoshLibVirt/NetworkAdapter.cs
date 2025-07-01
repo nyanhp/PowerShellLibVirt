@@ -14,14 +14,32 @@ namespace PoshLibVirt
 
         public string MacAddress { get => macAddress; set => macAddress = Regex.Replace(value, @"[\.\-\:]", string.Empty); }
 
+        public System.Collections.Generic.List<string> GetCommandLine()
+        {
+            var cmdLine = new System.Collections.Generic.List<string> { "--network" };
+            if (!string.IsNullOrWhiteSpace(NetworkName))
+            {
+                cmdLine.Add($"network={NetworkName}");
+            }
+            if (!string.IsNullOrWhiteSpace(BridgeName))
+            {
+                cmdLine.Add($"bridge={BridgeName}");
+            }
+            if (!string.IsNullOrWhiteSpace(MacAddress))
+            {
+                var mac = MacAddress.PadRight(12, '0').ToLower()
+                    .Insert(2, ":")
+                    .Insert(5, ":")
+                    .Insert(8, ":")
+                    .Insert(11, ":")
+                    .Insert(14, ":");
+                cmdLine.Add($"mac={mac}");
+            }
+            return cmdLine;
+        }
+
         public override string ToString()
         {
-            var mac = MacAddress.PadRight(12, '0').ToLower()
-                .Insert(2, ":")
-                .Insert(5, ":")
-                .Insert(8, ":")
-                .Insert(11, ":")
-                .Insert(14, ":");
             var str = "--network";
             if (!string.IsNullOrWhiteSpace(NetworkName))
             {
@@ -33,6 +51,12 @@ namespace PoshLibVirt
             }
             if (!string.IsNullOrWhiteSpace(MacAddress))
             {
+            var mac = MacAddress.PadRight(12, '0').ToLower()
+                .Insert(2, ":")
+                .Insert(5, ":")
+                .Insert(8, ":")
+                .Insert(11, ":")
+                .Insert(14, ":");
                 str += $" mac={mac}";
             }
             return str;

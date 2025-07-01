@@ -18,7 +18,7 @@
         {
             $Computer = foreach ($name in $VmName)
             {
-                Get-PLVVm -ComputerName $name
+                Get-PLVVm -VmName $name
             }
         }
 

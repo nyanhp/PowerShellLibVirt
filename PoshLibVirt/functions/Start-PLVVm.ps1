@@ -18,7 +18,7 @@
         {
             $Computer = foreach ($name in $VmName)
             {
-                Get-PLVVm -ComputerName $name
+                Get-PLVVm -VmName $name
             }
         }
 
@@ -29,7 +29,7 @@
                 continue
             }
 
-            virsh start $machine.Uuid
+            sudo virsh start $machine.Uuid
         }
     }
 }

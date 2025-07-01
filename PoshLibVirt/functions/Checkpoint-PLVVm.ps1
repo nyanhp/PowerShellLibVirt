@@ -68,7 +68,7 @@ function Checkpoint-PLVVm
         {
             $Computer = foreach ($vmName in $VmName)
             {
-                Get-PLVVm -ComputerName $vmName
+                Get-PLVVm -VmName $vmName
             }
         }
 
@@ -92,7 +92,7 @@ function Checkpoint-PLVVm
                 if ($Live.IsPresent()) { '--live' }
             )
 
-            Start-Process -Wait -FilePath virsh -ArgumentList $cmdLine
+            sudo virsh @cmdLine
         }
     }
 }

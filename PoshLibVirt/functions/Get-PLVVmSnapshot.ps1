@@ -41,16 +41,16 @@ function Get-PLVVmSnapshot
         {
             $Computer = foreach ($vmName in $VmName)
             {
-                Get-PLVVm -ComputerName $vmName
+                Get-PLVVm -VmName $vmName
             }
         }
 
         foreach ($machine in $Computer)
         {
-            [string[]]$snappies = virsh snapshot-list --name --domain $machine.Name 2>$null | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | ForEach-Object { $_.Trim() }
+            [string[]]$snappies = sudo virsh snapshot-list --name --domain $machine.Name 2>$null | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | ForEach-Object { $_.Trim() }
             foreach ($snap in ($snappies -like $Name))
             {
-                [xml] $snapXml = virsh snapshot-dumpxml --domain $machine.Name $snap
+                [xml] $snapXml = sudo virsh snapshot-dumpxml --domain $machine.Name $snap
                 [PoshLibVirt.Snapshot]::new(
                     $snapXml.domainsnapshot.name,
                     $snapXml.domainsnapshot.description,

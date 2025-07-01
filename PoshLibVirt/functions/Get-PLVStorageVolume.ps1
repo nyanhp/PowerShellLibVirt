@@ -12,19 +12,18 @@
 
     List all volumes in all pools with a name like Noodle
 #>
-function Get-PLVStorageVolume
-{
+function Get-PLVStorageVolume {
     [OutputType([PoshLibVirt.StorageVolume])]
     [CmdletBinding(DefaultParameterSetName = 'Pool')]
     param
     (
         # Name of the storage pool
-        [Parameter(Mandatory, ValueFromPipeline, ParameterSetName='PoolName')]
+        [Parameter(Mandatory, ValueFromPipeline, ParameterSetName = 'PoolName')]
         [string]
         $PoolName,
 
         # Piped storage pool object
-        [Parameter(Mandatory, ValueFromPipeline, ParameterSetName='Pool')]
+        [Parameter(Mandatory, ValueFromPipeline, ParameterSetName = 'Pool')]
         [PoshLibVirt.StoragePool]
         $Pool,
 
@@ -33,25 +32,20 @@ function Get-PLVStorageVolume
         $Name = '*'
     )
 
-    process
-    {
-        if ($Pool) {$PoolName = $Pool.Name}
+    process {
+        if ($Pool) { $PoolName = $Pool.Name }
 
-        if (-not (Get-PLVStoragePool -Name $PoolName))
-        {
+        if (-not (Get-PLVStoragePool -Name $PoolName)) {
             Write-PSFMessage -String Error.PoolNotFound -StringValues $PoolName
             return
         }
 
-        foreach ($vol in  (virsh vol-list --pool $PoolName | Select-Object -Skip 2)) # Why the flying F is this so counterintuitive?
-        {
-            if ([string]::IsNullOrWhiteSpace($vol)) { continue }
+        foreach ($vol in  (sudo virsh vol-list --pool $PoolName | Select-Object -Skip 2 | Where-Object {-not [string]::IsNullOrWhiteSpace($_)})) { # Why the flying F is this so counterintuitive?
             $volName, $volPath = ($vol.Trim() -split '\s+').Trim()
 
-            foreach ($volume in $Name)
-            {
+            foreach ($volume in $Name) {
                 if ($volName -notlike $volume) { continue }
-                [xml] $volXml = virsh vol-dumpxml --pool $PoolName $volName
+                [xml] $volXml = sudo virsh vol-dumpxml --pool $PoolName $volName
 
                 $volObject = [PoshLibVirt.StorageVolume]::new()
                 $volObject.Name = $volXml.volume.name
